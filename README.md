@@ -117,19 +117,7 @@ redirect to /profile if user clicks on "add to my list button"
 
 - name
 - callingCodes
-- capital
-- altSpellings
-- region
-- subregion
-- population
-- demonym
-- timezones
-- borders
-- currencies
-- languages
-- translations
-- flag
-- regionalBlocs
+
 
 ## Backlog routes
 
