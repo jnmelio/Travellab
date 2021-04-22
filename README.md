@@ -8,14 +8,23 @@ The user has access to a lot of details about each countries and can look for so
 ## User Stories
 
 404 - As a user I want to see a nice 404 page when I go to a page that doesn’t exist so that I know it was my fault
+
 500 - As a user I want to see a nice error page when the super team screws it up so that I know that is not my fault
+
 Homepage - As a user I want to be able to access the homepage and access my profile or search for a country
+
 sign up - As a user I want to sign up so I can create my travel whishlists
+
 firstChoice - As a user after signup I can pre select some countries to create my wishlist
+
 login - As a user I want to be able to log in so I can access my wishlists
+
 logout - As a user I want to be able to log out from the webpage so that I can make sure no one will access my account
+
 userProfile - As a user I want to access my profile and edit it if needed and edit my wishlists
+
 country-search-results - As a user I want to be able to search for a country and access the details of this country
+
 country-details - As a user I want to be able to see the details of the country I looked for
 
 ## Backlog
