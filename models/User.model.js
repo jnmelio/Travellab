@@ -18,6 +18,7 @@ const userSchema = new Schema({
   photo: String, 
   favoriteCountry: String, 
   favoriteWayOfTraveling: String, 
+  country: [String],
 });
 
 const User = model("User", userSchema);
