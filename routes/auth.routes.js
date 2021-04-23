@@ -95,8 +95,22 @@ const authorize = (req, res, next)=>{
 }
 
 router.get('/home/profile', authorize, (req,res, next)=>{
-  res.render('profilePages/profile.hbs')
+  console.log(req.session.userInfo._id)
+res.render('profilePages/profile.hbs', {user: req.session.userInfo})
 })
+
+router.get('/profile/:id/edit', (req, res, next)=>{
+  const {_id} = req.session.userInfo
+  console.log(_id)
+  User.findById(_id)
+  .then((data) => {
+    res.render('profilePages/profile-details.hbs',{data})
+  }).catch((err) => {
+    console.log(err)
+  });
+})
+
+
 
 
 router.get('/logout', (req, res, next)=>{
