@@ -1,2 +1,21 @@
-<h1>{{title}} 🚀</h1>
-<p>Welcome Ironhacker!</p>
+<h1>Welcome to Travellab</h1>
+<h2>I haven't been everywhere but it's on my list!</h2>
+
+<div id='signin'>
+<form method="POST" action="/home">
+  <label>Email</label>
+  <input type="email" name="email" placeholder="Enter your email"  >
+
+  <label>Password</label>
+  <input type="password" name="password" placeholder="Enter your Password"  >
+  <button>Sign In</button>
+</form>
+</div> 
+
+<p id="newMember">Don't have an account? <a href="/signup">Sign Up</a></p>
+
+
+
+{{#if msg}}
+  <div class="error">{{msg}}</div>
+{{/if}}

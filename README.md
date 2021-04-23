@@ -2,7 +2,8 @@
 
 ## Description
 
-This is a website where you can create your travel wishlists and a list of countries you've already been to. The user has access to a lot of details about each countries and can look for some thanks to a search bar.
+This is a website where you can create your travel wishlists and a list of countries you've already been to.
+The user has access to a lot of details about each countries and can look for some thanks to a search bar.
 
 ## User Stories
 
@@ -28,13 +29,12 @@ country-details - As a user I want to be able to see the details of the country 
 
 ## Backlog
 
-Configurate cookies
-more filters
-favicon
-use of others APIs like TripAdvisor and GoogleMaps
-special message for user birthday
-Go see another user lists
-
+- Configurate cookies
+- more filters
+- favicon
+- use of others APIs like TripAdvisor and GoogleMaps
+- special message for user birthday
+- Go see another user lists
 
 ## ROUTES:
 
@@ -42,29 +42,28 @@ Go see another user lists
 renders homepage.hbs
 
 ### POST /home or /
-signin form renders profile.hbs 
+signin form renders profile.hbs
+body
 
-body :
-
-username
-password
+- username
+- password
 
 ### GET /signup
 renders signup.hbs
 
 ### POST /signup
-renders firstwish.hbs if signup is successful 
-
+renders firstwish.hbs if signup is successful
 body :
 
-email
-username
-password
-birthday
-photo
-favorite country
-favorite way of traveling
-GET /signup/firstwish
+- email
+- username
+- password
+- birthday
+- photo
+- favorite country
+- favorite way of traveling
+
+### GET /signup/firstwish
 renders to firstwish.hbs
 
 ### POST /logout
@@ -74,56 +73,61 @@ body: (empty)
 renders profile.hbs
 
 ### POST /home/profile
-search form 
-
+search form
 body :
 
-whislist 1
-wishlist countries already visited
-POST /home/profile/:id/edit
-edit profile form body :
+- whislist 1
+- wishlist countries already visited
 
-email
-username
-password
-birthday
-photo
-favorite country
-favorite way of traveling
+### POST /home/profile/:id/edit
+edit profile form
+body :
+
+- email
+- username
+- password
+- birthday
+- photo
+- favorite country
+- favorite way of traveling
 
 ### GET /home/profile/add-a-destination
-renders countries-search-results.hbs renders /country-details.hbs if user click on a result
+renders countries-search-results.hbs
+renders /country-details.hbs if user click on a result
 
 ### POST /home/profile/add-a-destination
 search bar
 
 ### GET /country-details
-renders /country-details.hbs 
+renders /country-details.hbs
 redirect to /profile if user clicks on "add to my list button"
 
 ## Models
-
 ### User model
-email
-username
-password
-birthday
-photo
-favorite country
-favorite way of traveling
+
+- email
+- username
+- password
+- birthday
+- photo
+- favorite country
+- favorite way of traveling
 
 ### Country Model
-name
-callingCodes
+
+- name
+- callingCodes
+
 
 ## Backlog routes
-Profile :
-more filters for countries
-birthday message
-access to maps
+
+## Profile :
+
+- more filters for countries
+- birthday message
+- access to maps
 
 ## Links
-
 ### Board
 https://www.notion.so/Travellab-db2f83caeadf41699be8ca86f369d0c8
 
