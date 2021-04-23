@@ -128,16 +128,6 @@ const authorize = (req, res, next) => {
   } else {
     res.redirect("/home");
   }
-<<<<<<< HEAD
-};
-
-router.get("/home/profile", authorize, (req, res, next) => {
-  res.render("profilePages/profile.hbs");
-});
-=======
-  else{
-      res.redirect('/home')
-  }
 }
 
 router.get('/home/profile', authorize, (req,res, next)=>{
@@ -158,7 +148,6 @@ router.get('/profile/:id/edit', (req, res, next)=>{
 
 
 
->>>>>>> f8a1cac4909e989d06ec8269e366da527703e526
 
 router.get("/logout", (req, res, next) => {
   req.app.locals.isUserLoggedIn = false;
