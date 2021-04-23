@@ -16,15 +16,15 @@ router.post('/signup', (req, res, next)=>{
   const {username, password, email, age, photo, favoriteCountry, favoriteWayOfTraveling} = req.body
 
   // Only those 3 are required at registration, the others are optionnal
-//   if (!username || !email || !password ) {
-//     res.render('auth/signup.hbs', {msg: 'Please enter all fields marked by a *'})
-//     return;
-//   }
-//   const emailTest = /^\S+@\S+\.\S+$/
-//   if(!emailTest.test(email)) {
-//     res.render('auth/signup.hbs', {msg: 'Please enter a valid email format'})
-//     return;
-//   }
+  if (!username || !email || !password ) {
+    res.render('auth/signup.hbs', {msg: 'Please enter all fields marked by a *'})
+    return;
+  }
+  const emailTest = /^\S+@\S+\.\S+$/
+  if(!emailTest.test(email)) {
+    res.render('auth/signup.hbs', {msg: 'Please enter a valid email format'})
+    return;
+  }
 
 // const passwordTest = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/
 // if(!passwordTest.test(password)){
