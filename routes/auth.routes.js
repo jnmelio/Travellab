@@ -16,21 +16,21 @@ router.post('/signup', (req, res, next)=>{
   const {username, password, email, age, photo, favoriteCountry, favoriteWayOfTraveling} = req.body
 
   // Only those 3 are required at registration, the others are optionnal
-  if (!username || !email || !password ) {
-    res.render('auth/signup.hbs', {msg: 'Please enter all fields marked by a *'})
-    return;
-  }
-  const emailTest = /^\S+@\S+\.\S+$/
-  if(!emailTest.test(email)) {
-    res.render('auth/signup.hbs', {msg: 'Please enter a valid email format'})
-    return;
-  }
+//   if (!username || !email || !password ) {
+//     res.render('auth/signup.hbs', {msg: 'Please enter all fields marked by a *'})
+//     return;
+//   }
+//   const emailTest = /^\S+@\S+\.\S+$/
+//   if(!emailTest.test(email)) {
+//     res.render('auth/signup.hbs', {msg: 'Please enter a valid email format'})
+//     return;
+//   }
 
-const passwordTest = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/
-if(!passwordTest.test(password)){
-  res.render('auth/signup.hbs', {msg: 'Password must be at least 8 characters, must have a number, a special character and an uppercase Letter. Please create your password accordingly'})
-  return;
-}
+// const passwordTest = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/
+// if(!passwordTest.test(password)){
+//   res.render('auth/signup.hbs', {msg: 'Password must be at least 8 characters, must have a number, a special character and an uppercase Letter. Please create your password accordingly'})
+//   return;
+// }
 
 const salt = bcrypt.genSaltSync(12);
 const hash = bcrypt.hashSync(password, salt);
@@ -71,10 +71,10 @@ router.post('/home', (req,res, next)=>{
               if(isMatching){
               req.session.userInfo = response
               req.app.locals.isUserLoggedIn = true
-              res.render("profile.hbs")
+              res.redirect("/home/profile")
             }
             else{
-              res.redirect('/home/profile')
+              res.render('index.hbs', {msg: 'Password incorrect'})
             }
             })
     }
@@ -95,7 +95,7 @@ const authorize = (req, res, next)=>{
 }
 
 router.get('/home/profile', authorize, (req,res, next)=>{
-  res.render('profile.hbs')
+  res.render('profilePages/profile.hbs')
 })
 
 
