@@ -128,11 +128,37 @@ const authorize = (req, res, next) => {
   } else {
     res.redirect("/home");
   }
+<<<<<<< HEAD
 };
 
 router.get("/home/profile", authorize, (req, res, next) => {
   res.render("profilePages/profile.hbs");
 });
+=======
+  else{
+      res.redirect('/home')
+  }
+}
+
+router.get('/home/profile', authorize, (req,res, next)=>{
+  console.log(req.session.userInfo._id)
+res.render('profilePages/profile.hbs', {user: req.session.userInfo})
+})
+
+router.get('/profile/:id/edit', (req, res, next)=>{
+  const {_id} = req.session.userInfo
+  console.log(_id)
+  User.findById(_id)
+  .then((data) => {
+    res.render('profilePages/profile-details.hbs',{data})
+  }).catch((err) => {
+    console.log(err)
+  });
+})
+
+
+
+>>>>>>> f8a1cac4909e989d06ec8269e366da527703e526
 
 router.get("/logout", (req, res, next) => {
   req.app.locals.isUserLoggedIn = false;
