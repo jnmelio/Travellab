@@ -1,0 +1,31 @@
+
+<h1>Sign up to our website</h1>
+
+<form action="/signup" method="POST">
+  <label>Username*</label>
+  <input name="username" type="text"  placeholder="Enter your username"  >
+
+  <label>Password*</label>
+  <input name="password" type="password"  placeholder="Enter your Password"  >
+
+  <label>Email*</label>
+  <input name="email" type="text"  placeholder="Enter your email"  >
+
+  <label>Age</label>
+  <input name="age" type="number"  placeholder="Enter your age"  >
+
+  <label>Photo</label>
+  <input name="photo" type="text"  placeholder="Add a photo"  >
+
+  <label>Favorite country</label>
+  <input name="favoriteCountry" type="text"  placeholder="Enter the name of your favorite country"  >
+
+  <label>Favorite way of traveling</label>
+  <input name="favoriteWayOfTraveling" type="text"  placeholder="Enter the name of your favorite way of traveling"  >
+
+  <button>Sign Up</button>
+</form>
+
+{{#if msg}}
+<div class="error">{{msg}}</div>
+{{/if}}
