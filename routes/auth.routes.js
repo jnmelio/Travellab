@@ -1,17 +1,15 @@
+// variables and require
 const router = require("express").Router();
 const bcrypt = require("bcryptjs");
 const User = require("../models/User.model");
 const axios = require("axios");
-
 let userInfo = {};
 
-
-//Get route for the sign up form
+//SIGN UP ROUTES
 router.get("/signup", (req, res, next) => {
   res.render("auth/signup.hbs");
 });
 
-//Post route for the signup form
 router.post("/signup", (req, res, next) => {
   const {
     username,
@@ -37,9 +35,12 @@ router.post("/signup", (req, res, next) => {
     return;
   }
 
-  const passwordTest = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/
-  if(!passwordTest.test(password)){
-    res.render('auth/signup.hbs', {msg: 'Password must be at least 8 characters, must have a number, a special character and an uppercase Letter. Please create your password accordingly'})
+  const passwordTest = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+  if (!passwordTest.test(password)) {
+    res.render("auth/signup.hbs", {
+      msg:
+        "Password must be at least 8 characters, must have a number, a special character and an uppercase Letter. Please create your password accordingly",
+    });
     return;
   }
 
@@ -64,30 +65,32 @@ router.post("/signup", (req, res, next) => {
     });
 });
 
-router.get('/signup/firstwishlist', (req, res, next)=>{
-  axios.get(`https://restcountries.eu/rest/v2/all`)
-  .then((response)=>{
-    res.render('profilePages/firstwish.hbs', {name: response.data})
-  })
-  .catch((err)=>{
-    next(err)
-  })
-})
+//FIRST WISHILIST ROUTES
+router.get("/signup/firstwishlist", (req, res, next) => {
+  axios
+    .get(`https://restcountries.eu/rest/v2/all`)
+    .then((response) => {
+      res.render("profilePages/firstwish.hbs", { name: response.data });
+    })
+    .catch((err) => {
+      next(err);
+    });
+});
 
-router.post('/signup/firstwishlist', (req, res, next)=>{
-  const {id} = req.params
-  const {country} = req.body
-  console.log(req.params)
+router.post("/signup/firstwishlist", (req, res, next) => {
+  const { id } = req.params;
+  const { country } = req.body;
+  console.log(req.params);
   User.findById(id)
-  .then(()=>{
-    res.redirect('/home/profile')
-  })
-  .catch(()=>{
-    console.log('nope')
-  })
-})
+    .then(() => {
+      res.redirect("/home/profile");
+    })
+    .catch(() => {
+      console.log("nope");
+    });
+});
 
-
+//HOME ROUTES
 router.get("/home", (req, res) => {
   res.render("index.hbs");
 });
@@ -121,23 +124,25 @@ router.post("/home", (req, res, next) => {
     });
 });
 
-//middleware
+//MIDDLEWARE
 const authorize = (req, res, next) => {
   if (req.session.userInfo) {
     next();
   } else {
     res.redirect("/home");
   }
-}
+};
 
-router.get('/home/profile', authorize, (req,res, next)=>{
-  console.log(req.session.userInfo._id)
-res.render('profilePages/profile.hbs', {user: req.session.userInfo})
-})
+//PROFILE ROUTES
+router.get("/home/profile", authorize, (req, res, next) => {
+  console.log(req.session.userInfo._id);
+  res.render("profilePages/profile.hbs", { user: req.session.userInfo });
+});
 
-router.get('/profile/:id/edit', (req, res, next)=>{
-  const {_id} = req.session.userInfo
-  console.log(_id)
+//EDIT PROFILE ROUTES
+router.get("/profile/:id/edit", (req, res, next) => {
+  const { _id } = req.session.userInfo;
+  console.log(_id);
   User.findById(_id)
   .then((data) => {
     res.render('profilePages/profile-details.hbs',{data})
@@ -149,10 +154,12 @@ router.get('/profile/:id/edit', (req, res, next)=>{
 
 
 
+//LOG OUT ROUTE
 router.get("/logout", (req, res, next) => {
   req.app.locals.isUserLoggedIn = false;
   req.session.destroy();
   res.redirect("/");
 });
 
+//EXPORTS
 module.exports = router;
