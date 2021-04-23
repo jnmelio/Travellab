@@ -51,7 +51,13 @@ const authorize = (req, res, next)=>{
 }
 
 router.get('/home/profile', authorize, (req,res, next)=>{
-  res.render('profile.hbs')
+  const {email} = req.session.userInfo
+  const id = req.params
+  UserModel.findById(id)
+    .then((data)=>{
+      res.render('profile.hbs', {data})
+    })
+    .catch((err)=>console.log('Error'))
 })
 
 
