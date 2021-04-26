@@ -142,8 +142,8 @@ router.get("/home/profile", authorize, (req, res, next) => {
   res.render("profilePages/profile.hbs", { user: req.session.userInfo });
 });
 
-//EDIT PROFILE ROUTES
-router.get("/profile/:id/edit", (req, res, next) => {
+// ACCOUNT DETAILS ROUTE
+router.get("/profile/:id/details", (req, res, next) => {
   const { _id } = req.session.userInfo;
   console.log(_id);
   User.findById(_id)
@@ -163,6 +163,45 @@ router.get('/country', (req, res, next)=>{
   })
   .catch((err) => {
     next(err);
+  });
+})
+
+
+//EDIT ACCOUNT INFOS ROUTES
+router.get("/profile/:id/edit", (req, res, next) => {
+  const { _id } = req.session.userInfo;
+  
+  console.log(_id);
+  User.findById(_id)
+    .then((data) => {
+      res.render("profilePages/profile-edit", { data });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
+
+router.post('/profile/:id/edit', (req, res,next)=>{
+  const {_id} = req.session.userInfo
+  const {username, age, favoriteCountry, favoriteWayOfTraveling, typeOfTraveller} = req.body
+  User.findByIdAndUpdate(_id, {username, age, favoriteCountry, favoriteWayOfTraveling, typeOfTraveller})
+    .then((data) => {
+      res.redirect("/profile/:id/details")
+    }).catch((err) => {
+      console.log(err)
+    });
+})
+
+//Delete your account route
+router.post('/profile/:id/delete', (req, res, next)=>{
+  const {_id} = req.session.userInfo
+  User.findByIdAndDelete(_id)
+  .then(() => {
+    req.app.locals.isUserLoggedIn = false;
+    req.session.destroy();
+    res.redirect('/home')
+  }).catch((err) => {
+    console.log(err)
   });
 })
 

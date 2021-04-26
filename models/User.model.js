@@ -17,7 +17,14 @@ const userSchema = new Schema({
   age : Date, 
   photo: String, 
   favoriteCountry: String, 
-  favoriteWayOfTraveling: String, 
+  favoriteWayOfTraveling: {
+    type: String,
+    enum:['', 'Plane', 'Boat', 'Road', 'Bike', 'Other']
+  },
+  typeOfTraveller:{
+    type: String,
+    enum:['', 'Holidaymaker', 'Business Traveller', 'Backpacker & Adventure Traveller', 'Expedition Member', 'Long Term Traveller', 'Traveller with Special Needs', 'Other']
+  },
   country: [String],
 });
 

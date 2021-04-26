@@ -1,1 +1,19 @@
-<p>{{data}}</p>
+<p>Username : {{data.username}}</p>
+<p>Email: {{data.email}}</p>
+<p>Age: {{data.age}}</p>
+<p>Favorite Country: {{data.favoriteCountry}}</p>
+<p>Favorite Way of Travelling: {{data.favoriteWayOfTraveling}}</p>
+<p>Type of Traveller: {{data.typeOfTraveller}}</p>
+<p>Photo: </p>
+
+
+
+<form action='/profile/{{data._id}}/edit' method="GET">
+<button class="btn btn-warning">Edit</button>
+</form>
+
+<form action='/profile/{{data._id}}/delete' method="POST">
+  <button class="btn btn-danger">Delete your account</button>
+</form>
+
+

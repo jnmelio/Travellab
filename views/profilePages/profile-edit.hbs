@@ -1,0 +1,41 @@
+<form action='/profile/{{data._id}}/edit' method='POST'>
+
+  <label for='title'>Username</label>
+  <input type='text' name="username" value='{{data.username}}'>
+
+  <br>
+  
+  <label for=''>Age</label>
+  <input type='text' name='age' value='{{data.age}}'>
+
+  <br>
+
+  <label for=''>Favorite Country</label>
+  <input type='text' name='favoriteCountry' value='{{data.favoriteCountry}}'>
+
+  <br>
+  <label for="favoriteWayOfTraveling">My favorite way of travelling is:</label>
+  <select name="favoriteWayOfTraveling" id="favoriteWayOfTraveling">
+    <option selected = value="Plane">Plane</option>
+    <option selected = value="Boat">Boat</option>
+    <option selected = value="Road">Road</option>
+    <option selected = value="Bike">Bike</option>
+    <option selected = value="Other">Other</option>
+    </select>
+  <br>
+  <label for="typeOfTraveller">Which type describes you best:</label>
+  <select name="typeOfTraveller" id="typeoftraveller">
+    <option selected = value="Holidaymaker">Holidaymaker</option>
+    <option selected = value="Business Traveller">Business Traveller</option>
+    <option selected = value="Backpacker & Adventure Traveller">Backpacker & Adventure Traveller</option>
+    <option selected = value="Expedition Member">Expedition Member</option>
+    <option selected = value="Long Term Traveller">Long Term Traveller</option>
+    <option selected = value="Traveller with Special Needs">Traveller with Special Needs</option>
+    <option selected = value="Other">Other</option>
+
+
+  </select>
+
+  <button type="submit">Save Changes</button>
+
+</form>
