@@ -1,28 +1,50 @@
 <h1>Sign up to our website</h1>
 
 <form action="/signup" method="POST">
-  <label>Username*</label>
-  <input name="username" type="text" placeholder="Enter your username">
 
-  <label>Password*</label>
-  <input name="password" type="password" placeholder="Enter your Password">
+  <div class="mb-3">
+    <label>Username*</label>
+    <input name="username" type="text" placeholder="Enter your username" class="form-control">
+  </div>
 
-  <label>Email*</label>
-  <input name="email" type="text" placeholder="Enter your email">
+  <div class="mb-3">
+    <label>Password*</label>
+    <input name="password" type="password" placeholder="Enter your Password" class="form-control  darkmode-ignore">
+  </div>
 
-  <label>Age</label>
-  <input name="age" type="number" placeholder="Enter your age">
+  <div class="mb-3">
+    <label class="form-label">Email*</label>
+    <input name="email" type="text" placeholder="Enter your email" class="form-control  darkmode-ignore">
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Birthday</label>
+    <input name="age" type="date" placeholder="Enter your date of birth" class="form-control  darkmode-ignore">
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Photo</label>
+    <input name="photo" type="file" placeholder="Add a photo" accept="image/png, image/jpeg" class="form-control  darkmode-ignore">
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Favorite country</label>
+    <input name="favoriteCountry" type="text" placeholder="Enter the name of your favorite country"
+      class="form-control  darkmode-ignore">
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Favorite way of traveling</label>
+    <select name="way of traveling" id="travel-select" class="form-select  darkmode-ignore">
+      <option value="">--Please choose an option--</option>
+      <option value="train">Train</option>
+      <option value="plane">Airplane</option>
+      <option value="boat">Boat</option>
+      <option value="bycicle">Bycicle</option>
+      <option value="walk">Walk</option>
+      <option value="other">Other</option>
+    </select>
 
-  <label>Photo</label>
-  <input name="photo" type="text" placeholder="Add a photo">
+  </div>
 
-  <label>Favorite country</label>
-  <input name="favoriteCountry" type="text" placeholder="Enter the name of your favorite country">
 
-  <label>Favorite way of traveling</label>
-  <input name="favoriteWayOfTraveling" type="text" placeholder="Enter the name of your favorite way of traveling">
-
-  <button type="submit">Sign Up</button>
+  <button type="submit" class="btn btn-primary button-travel darkmode-ignore">Sign Up</button>
 </form>
 
 {{#if msg}}

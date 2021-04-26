@@ -1,20 +1,24 @@
-<h1>Welcome to Travellab</h1>
-<h2>I haven't been everywhere but it's on my list!</h2>
 
-<div id='signin'>
+<h4>I haven't been everywhere but it's on my list!</h4>
+<div id='signin' class="mb-3">
 <form method="POST" action="/home">
-  <label>Email</label>
-  <input type="email" name="email" placeholder="Enter your email"  >
-
-  <label>Password</label>
-  <input type="password" name="password" placeholder="Enter your Password"  >
-  <button>Sign In</button>
-</form>
+<div>
+  <label class="form-label">Email</label>
+  <input type="email" name="email" placeholder="Enter your email" class="form-control" >
 </div> 
+<div class="mb-3">
+  <label class="form-label">Password</label>
+  <input type="password" name="password" placeholder="Enter your Password"  class="form-control">
+</div>
+
+ <button  class="btn btn-primary button-travel darkmode-ignore">Sign In</button>
+
+</form>
+</div>
+
+
 
 <p id="newMember">Don't have an account? <a href="/signup">Sign Up</a></p>
-
-
 
 {{#if msg}}
   <div class="error">{{msg}}</div>

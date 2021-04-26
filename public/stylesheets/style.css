@@ -18,3 +18,16 @@ h1 {
   padding: 20px;
   width: 100%;
 }
+
+.general-background {
+  background-color: #fbfcf8;
+  margin: 5px;
+  font-family: 'Open Sans', sans-serif;
+}
+
+.button-travel {
+  background-color:#91d7a4 ;
+  border-color: #91d7a4;
+  padding: 5px 30%;
+  text-align: center;
+}

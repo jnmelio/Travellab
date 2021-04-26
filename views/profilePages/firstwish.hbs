@@ -1,16 +1,24 @@
 <h1>Let's start with adding some countries to your profile</h1>
 
-<h2>Do you wish to visit one of those countries?</h2>
+<h4>One more step before accessing your profile</h4>
 
 
 <div>
   <form action="/signup/firstwishlist" method="POST">
-    <select multiple name="countries">
+  <div class="mb-3">
+    <label class="form-label">Pick a country you would like to visit</label>
+    <select multiple name="countries" class="form-select">
       {{#each name}}
       <option> {{this.name}}</option>
       {{/each}}
     </select>
-    <button type="submit">Go to my profile</button>
+      </div>
+      <div>
+    <button type="submit" class="btn btn-primary button-travel">Go to my profile</button>
+      </div>
+
+
+
   </form>
 
 

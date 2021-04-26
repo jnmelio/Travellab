@@ -5,6 +5,7 @@ const User = require("../models/User.model");
 const axios = require("axios");
 let userInfo = {};
 
+
 //SIGN UP ROUTES
 router.get("/signup", (req, res, next) => {
   res.render("auth/signup.hbs");
@@ -35,7 +36,7 @@ router.post("/signup", (req, res, next) => {
     return;
   }
 
-  const passwordTest = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+  const passwordTest = /^(?=.*\d)(?=.*[a-z])[\w~@#$%^&*+=`|{}:;!.?\"()\[\]-]{8,}$/;
   if (!passwordTest.test(password)) {
     res.render("auth/signup.hbs", {
       msg:
@@ -57,7 +58,9 @@ router.post("/signup", (req, res, next) => {
     favoriteWayOfTraveling,
     country,
   })
-    .then(() => {
+    .then((response) => {
+      req.session.userInfo = response
+      req.app.locals.isUserLoggedIn = true;
       res.redirect("/signup/firstwishlist");
     })
     .catch((err) => {
@@ -151,7 +154,17 @@ router.get("/profile/:id/edit", (req, res, next) => {
   });
 })
 
-
+//COUNTRY DETAILS ROUTES
+router.get('/country', (req, res, next)=>{
+  axios
+  .get(`https://restcountries.eu/rest/v2/all`)
+  .then((response) => {
+    res.render("country/country-details.hbs", { country: response.data });
+  })
+  .catch((err) => {
+    next(err);
+  });
+})
 
 
 //LOG OUT ROUTE
