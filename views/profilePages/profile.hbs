@@ -1,10 +1,54 @@
-<h1>Profile Page</h1>
+<h1>{{user.username}}</h1>
 
+<!--
 <div class='profile-info'>
   <h2>Hey {{user.email}}, Welcome to your profile</h2>
   <h3>{{user.username}}</h3>
-  <a href='/profile/{{user._id}}/edit'>
-    <button class="btn">Edit your profile</button>
+  <a href='/profile/{{user._id}}/details'>
+    <button class="btn">About You</button>
   </a>
-
+  <a href="/logout"><button class="btn">Logout</button></a>
 </div>
+-->
+
+<div class="tab">
+  <button class="tablinks" onclick="openCity(event, 'NextTrips')">Next Trips</button>
+  <button class="tablinks" onclick="openCity(event, 'RecentTrips')">Recent Trips</button>
+</div>
+
+<!-- Tab content -->
+<div id="NextTrips" class="tabcontent">
+  <h3>London</h3>
+  <p>London is the capital city of England.</p>
+</div>
+
+<div id="RecentTrips" class="tabcontent">
+  <h3>Paris</h3>
+  <p>Paris is the capital of France.</p>
+</div>
+
+
+
+
+<script>function openCity(evt, cityName) {
+  // Declare all variables
+  var i, tabcontent, tablinks;
+
+  // Get all elements with class="tabcontent" and hide them
+  tabcontent = document.getElementsByClassName("tabcontent");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+
+  // Get all elements with class="tablinks" and remove the class "active"
+  tablinks = document.getElementsByClassName("tablinks");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(" active", "");
+  }
+
+  // Show the current tab, and add an "active" class to the button that opened the tab
+  document.getElementById(cityName).style.display = "block";
+  evt.currentTarget.className += " active";
+}
+</script>
+
