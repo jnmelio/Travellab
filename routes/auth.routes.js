@@ -4,7 +4,14 @@ const bcrypt = require("bcryptjs");
 const User = require("../models/User.model");
 const axios = require("axios");
 let userInfo = {};
-
+function randomCountry(response) {
+  let randomName = []
+  for (let i = 0; i < 10; i++) {
+    randomName.push(response[Math.floor(Math.random() * response.length)])
+  }
+  console.log(randomName)
+  return randomName
+}
 
 //SIGN UP ROUTES
 router.get("/signup", (req, res, next) => {
@@ -73,7 +80,8 @@ router.get("/signup/firstwishlist", (req, res, next) => {
   axios
     .get(`https://restcountries.eu/rest/v2/all`)
     .then((response) => {
-      res.render("profilePages/firstwish.hbs", { name: response.data });
+      let random = randomCountry(response.data)
+      res.render("profilePages/firstwish.hbs", { name: random });
     })
     .catch((err) => {
       next(err);
@@ -81,12 +89,11 @@ router.get("/signup/firstwishlist", (req, res, next) => {
 });
 
 router.post("/signup/firstwishlist", (req, res, next) => {
-  const { id } = req.params;
-  const { country } = req.body;
-  console.log(req.params);
-  User.findById(id)
-    .then(() => {
-      res.redirect("/home/profile");
+  const { id } = req.session.userInfo;
+  const {countryId} = req.body
+  User.findByIdAndUpdate(id, {countryId})
+    .then((data) => {
+      res.redirect('/home/profile')
     })
     .catch(() => {
       console.log("nope");
