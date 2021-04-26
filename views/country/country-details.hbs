@@ -1,6 +1,14 @@
 <h1>Country details</h1>
-{{#each country}}
-  {{#each this.currencies}}
-  <p>{{this.code}}</p>
-  {{/each}}
-{{/each}}
+
+
+<form action="/country" method="POST">
+  <div class="mb-3">
+<p>Name : {{response.name}}</p>
+      </div>
+      <div>
+    <button type="submit" class="btn btn-primary button-travel"><a href="/home/profile">Add to my wishlist</a></button>
+      </div>
+
+
+
+  </form>

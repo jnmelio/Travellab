@@ -3,15 +3,17 @@ const router = require("express").Router();
 const bcrypt = require("bcryptjs");
 const User = require("../models/User.model");
 const axios = require("axios");
+const countryModel = require("../models/Country.model");
 let userInfo = {};
+let newCountry = []
 function randomCountry(response) {
   let randomName = []
   for (let i = 0; i < 10; i++) {
     randomName.push(response[Math.floor(Math.random() * response.length)])
   }
-  console.log(randomName)
   return randomName
 }
+
 
 //SIGN UP ROUTES
 router.get("/signup", (req, res, next) => {
@@ -77,10 +79,9 @@ router.post("/signup", (req, res, next) => {
 
 //FIRST WISHILIST ROUTES
 router.get("/signup/firstwishlist", (req, res, next) => {
-  axios
-    .get(`https://restcountries.eu/rest/v2/all`)
+  countryModel.find()
     .then((response) => {
-      let random = randomCountry(response.data)
+      let random = randomCountry(response)
       res.render("profilePages/firstwish.hbs", { name: random });
     })
     .catch((err) => {
@@ -89,14 +90,14 @@ router.get("/signup/firstwishlist", (req, res, next) => {
 });
 
 router.post("/signup/firstwishlist", (req, res, next) => {
-  const { id } = req.session.userInfo;
+  const { _id } = req.session.userInfo;
   const {countryId} = req.body
-  User.findByIdAndUpdate(id, {countryId})
-    .then((data) => {
+  User.findByIdAndUpdate(_id, {countryId}, {new: true})
+    .then((response) => {
       res.redirect('/home/profile')
     })
-    .catch(() => {
-      console.log("nope");
+    .catch((err) => {
+      console.log(err);
     });
 });
 
@@ -146,7 +147,15 @@ const authorize = (req, res, next) => {
 //PROFILE ROUTES
 router.get("/home/profile", authorize, (req, res, next) => {
   console.log(req.session.userInfo._id);
-  res.render("profilePages/profile.hbs", { user: req.session.userInfo });
+  User.findById(req.session.userInfo._id)
+  .populate('countryId', 'name')
+  .then((data)=>{
+    console.log(data)
+    res.render("profilePages/profile.hbs", { user: req.session.userInfo, country: data});
+  })
+  .catch((err)=>{
+    console.log(err)
+  })
 });
 
 // ACCOUNT DETAILS ROUTE
@@ -163,14 +172,22 @@ router.get("/profile/:id/details", (req, res, next) => {
 
 //COUNTRY DETAILS ROUTES
 router.get('/country', (req, res, next)=>{
-  axios
-  .get(`https://restcountries.eu/rest/v2/all`)
-  .then((response) => {
-    res.render("country/country-details.hbs", { country: response.data });
+    res.render("country/country-details.hbs");
+})
+
+router.post ('/country', (req, res, next)=>{
+  const { _id } = req.session.userInfo;
+  const {countryId} = req.body
+  console.log(countryId)
+  User.findByIdAndUpdate(_id, { $push: {countryId: countryId}}, {new:true})
+  .then((response)=>{
+    console.log(response)
+    res.redirect('/country')
   })
-  .catch((err) => {
-    next(err);
-  });
+  .catch((err)=>{
+    console.log(err)
+  })
+
 })
 
 
@@ -212,6 +229,27 @@ router.post('/profile/:id/delete', (req, res, next)=>{
   });
 })
 
+//ADD A DESTINATION ROUTE
+router.get('/add-a-destination', (req, res, next)=>{
+  countryModel.find()
+    .then((response) => {
+      res.render('country/addADestination.hbs', {country: response});
+    })
+    .catch((err) => {
+      next(err);
+    });
+})
+
+router.post("/add-a-destination", (req, res, next) => {
+  const { countryId } = req.body;
+  countryModel.findById(countryId)
+    .then((response) => {
+      res.render('country/country-details.hbs', {response})
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
 
 //LOG OUT ROUTE
 router.get("/logout", (req, res, next) => {

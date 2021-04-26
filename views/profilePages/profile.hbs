@@ -1,6 +1,10 @@
 <h1>Hey {{user.username}}, Welcome to your profile</h1>
 
+{{#each country.countryId}}
+<p>{{this.name}}</p>
+{{/each}}
 
+<a href="/add-a-destination">Add a destination</a>
 <div class="tab">
   <button class="tablinks" onclick="openCity(event, 'NextTrips')">Next Trips</button>
   <button class="tablinks" onclick="openCity(event, 'RecentTrips')">Recent Trips</button>
