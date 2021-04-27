@@ -39,9 +39,11 @@ country-details - As a user I want to be able to see the details of the country 
 ## ROUTES:
 
 ### GET /home or /
+
 renders homepage.hbs
 
 ### POST /home or /
+
 signin form renders profile.hbs
 body
 
@@ -49,9 +51,11 @@ body
 - password
 
 ### GET /signup
+
 renders signup.hbs
 
 ### POST /signup
+
 renders firstwish.hbs if signup is successful
 body :
 
@@ -64,15 +68,19 @@ body :
 - favorite way of traveling
 
 ### GET /signup/firstwish
+
 renders to firstwish.hbs
 
 ### POST /logout
+
 body: (empty)
 
 ### GET /home/profile
+
 renders profile.hbs
 
 ### POST /home/profile
+
 search form
 body :
 
@@ -80,6 +88,7 @@ body :
 - wishlist countries already visited
 
 ### POST /home/profile/:id/edit
+
 edit profile form
 body :
 
@@ -92,17 +101,21 @@ body :
 - favorite way of traveling
 
 ### GET /home/profile/add-a-destination
+
 renders countries-search-results.hbs
 renders /country-details.hbs if user click on a result
 
 ### POST /home/profile/add-a-destination
+
 search bar
 
 ### GET /country-details
+
 renders /country-details.hbs
 redirect to /profile if user clicks on "add to my list button"
 
 ## Models
+
 ### User model
 
 - email
@@ -118,7 +131,6 @@ redirect to /profile if user clicks on "add to my list button"
 - name
 - callingCodes
 
-
 ## Backlog routes
 
 ## Profile :
@@ -128,11 +140,15 @@ redirect to /profile if user clicks on "add to my list button"
 - access to maps
 
 ## Links
+
 ### Board
+
 https://www.notion.so/Travellab-db2f83caeadf41699be8ca86f369d0c8
 
 ### Wireframes
+
 https://whimsical.com/travel-lab-B9oHatHDp1Abq8PsuRCAMz
 
 ### Git
+
 https://github.com/jnmelio/Travellab

@@ -1,11 +1,11 @@
 <h1>Search</h1>
 <form action="/search" method='GET'>
-<input type="text" name='query' id="search" placeholder="Search Photos">
-<button type="submit">Search</button>
+  <input type="text" name='query' id="search" placeholder="Search Photos">
+  <button type="submit">Search</button>
 </form>
 <div id="result">
   {{#each images}}
-  
+
   <a href="{{this.links.download}}"><img src='{{this.urls.thumb}}' alt="{{this.alt_description}}"></a>
   {{/each}}
 </div>

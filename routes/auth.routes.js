@@ -1,45 +1,82 @@
-// variables and require
+//VARIABLES AND REQUIRES
 const router = require("express").Router();
 const bcrypt = require("bcryptjs");
 require("dotenv/config");
 const User = require("../models/User.model");
 const axios = require("axios");
 const countryModel = require("../models/Country.model");
-let userInfo = {};
-let newCountry = []
+
+//FUNCTION RANDOM COUNTRIES
 function randomCountry(response) {
-  let randomName = []
+  let randomName = [];
   for (let i = 0; i < 10; i++) {
-    randomName.push(response[Math.floor(Math.random() * response.length)])
+    randomName.push(response[Math.floor(Math.random() * response.length)]);
   }
-  return randomName
+  return randomName;
 }
 
+//HOME ROUTES
+router.get("/home", (req, res) => {
+  res.render("index.hbs");
+});
 
-//YANIS ROAD
-router.get('/search', (req,res,next)=>{
-    let clientId = process.env.CLIENT_ID
-    let {query} = req.query; 
-    let url = "https://api.unsplash.com/search/photos?client_id="+clientId+"&query="+query 
+router.post("/home", (req, res, next) => {
+  const { email, password } = req.body;
+  if (email === "" || password === "") {
+    res.render("index.hbs", {
+      msg: "Please enter both, email and password to login.",
+    });
+    return;
+  }
+  User.findOne({ email })
+    .then((response) => {
+      if (!response) {
+        res.render("index.hbs", { msg: "Cannot find your mail" });
+      } else {
+        bcrypt.compare(password, response.password).then((isMatching) => {
+          if (isMatching) {
+            req.session.userInfo = response;
+            req.app.locals.isUserLoggedIn = true;
+            res.redirect("/home/profile");
+          } else {
+            res.render("index.hbs", { msg: "Password incorrect" });
+          }
+        });
+      }
+    })
+    .catch((err) => {
+      next(err);
+    });
+});
 
-    //make a request to the api
-    if(!query){
-      res.render('country/image-search.hbs')
-    }
-    else{
-      axios
+//PHOTOS
+router.get("/search", (req, res, next) => {
+  let clientId = process.env.CLIENT_ID;
+  let { query } = req.query;
+  let url =
+    "https://api.unsplash.com/search/photos?client_id=" +
+    clientId +
+    "&query=" +
+    query;
+
+  //make a request to the api
+  if (!query) {
+    res.render("country/image-search.hbs");
+  } else {
+    axios
       .get(url)
-      .then(function(data){
-        if(data.data.total==0){
-          res.render('country/image-search.hbs', {msg: "Please enter a valid country name"})
-        }
-        else{
-          res.render('country/image-search.hbs', {images: data.data.results})
+      .then(function (data) {
+        if (data.data.total == 0) {
+          res.render("country/image-search.hbs", {
+            msg: "Please enter a valid country name",
+          });
+        } else {
+          res.render("country/image-search.hbs", { images: data.data.results });
         }
       })
-      .catch((err)=>console.log(err))
-    }
-})
+      .catch((err) => console.log(err));
+  }
+});
 
 //SIGN UP ROUTES
 router.get("/signup", (req, res, next) => {
@@ -94,7 +131,7 @@ router.post("/signup", (req, res, next) => {
     country,
   })
     .then((response) => {
-      req.session.userInfo = response
+      req.session.userInfo = response;
       req.app.locals.isUserLoggedIn = true;
       res.redirect("/signup/firstwishlist");
     })
@@ -105,9 +142,10 @@ router.post("/signup", (req, res, next) => {
 
 //FIRST WISHILIST ROUTES
 router.get("/signup/firstwishlist", (req, res, next) => {
-  countryModel.find()
+  countryModel
+    .find()
     .then((response) => {
-      let random = randomCountry(response)
+      let random = randomCountry(response);
       res.render("profilePages/firstwish.hbs", { name: random });
     })
     .catch((err) => {
@@ -117,50 +155,15 @@ router.get("/signup/firstwishlist", (req, res, next) => {
 
 router.post("/signup/firstwishlist", (req, res, next) => {
   const { _id } = req.session.userInfo;
-  const {countryWishList} = req.body
-  User.findByIdAndUpdate(_id, {countryWishList}, {new: true})
+  const { countryWishList } = req.body;
+  User.findByIdAndUpdate(_id, { countryWishList }, { new: true })
     .then((response) => {
-      res.redirect('/home/profile')
+      res.redirect("/home/profile");
     })
     .catch((err) => {
       console.log(err);
     });
 });
-
-//HOME ROUTES
-router.get("/home", (req, res) => {
-  res.render("index.hbs");
-});
-
-router.post("/home", (req, res, next) => {
-  const { email, password } = req.body;
-  if (email === "" || password === "") {
-    res.render("index.hbs", {
-      msg: "Please enter both, email and password to login.",
-    });
-    return;
-  }
-  User.findOne({ email })
-    .then((response) => {
-      if (!response) {
-        res.render("index.hbs", { msg: "Cannot find your mail" });
-      } else {
-        bcrypt.compare(password, response.password).then((isMatching) => {
-          if (isMatching) {
-            req.session.userInfo = response;
-            req.app.locals.isUserLoggedIn = true;
-            res.redirect("/home/profile");
-          } else {
-            res.render("index.hbs", { msg: "Password incorrect" });
-          }
-        });
-      }
-    })
-    .catch((err) => {
-      next(err);
-    });
-});
-
 
 //LOG OUT ROUTE
 router.get("/logout", (req, res, next) => {
@@ -168,7 +171,6 @@ router.get("/logout", (req, res, next) => {
   req.session.destroy();
   res.redirect("/");
 });
-
 
 //EXPORTS
 module.exports = router;

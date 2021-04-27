@@ -1,11 +1,9 @@
 <h1>Add</h1>
 
 <form action="/country" method='GET'>
-<input type="text" name='query' id="myInput" placeholder="Search a country">
-<button type="submit">Search</button>
+  <input type="text" name='query' id="myInput" placeholder="Search a country">
+  <button type="submit">Search</button>
 </form>
-
-{{!-- <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for a country"> --}}
 
 <ul id="myUL">
   <li> {{#each country}}
@@ -14,5 +12,5 @@
   </li>
 </ul>
 <div>
-    <button type="submit" class="btn btn-primary button-travel">Go to my profile</button>
-  </div>
+  <button type="submit" class="btn btn-primary button-travel">Go to my profile</button>
+</div>

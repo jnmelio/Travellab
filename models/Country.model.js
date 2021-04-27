@@ -1,28 +1,32 @@
 const { Schema, model } = require("mongoose");
 
 const countrySchema = new Schema({
-  name: String, 
+  name: String,
   numericCode: Number,
-  callingCodes: [String], 
-  capital: String, 
-  region: String, 
-  subregion: String, 
+  callingCodes: [String],
+  capital: String,
+  region: String,
+  subregion: String,
   population: Number,
-  demonym: String, 
-  timezones: [String], 
-  borders: [String], 
-  nativeName: String, 
-  currencies: [{
-    name:String, 
-    symbol:String,
-  }],
-  languages: [{
-    name:String,
-    nativeName:String,
-  }], 
-  flag: String, 
-})
+  demonym: String,
+  timezones: [String],
+  borders: [String],
+  nativeName: String,
+  currencies: [
+    {
+      name: String,
+      symbol: String,
+    },
+  ],
+  languages: [
+    {
+      name: String,
+      nativeName: String,
+    },
+  ],
+  flag: String,
+});
 
-const countryModel = model('country', countrySchema)
+const countryModel = model("country", countrySchema);
 
 module.exports = countryModel;
