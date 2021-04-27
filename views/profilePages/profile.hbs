@@ -1,55 +1,16 @@
 <h1>Hey {{user.username}}, Welcome to your profile</h1>
 
-{{#each country.countryId}}
-<p>{{this.name}}</p>
-{{/each}}
 
-<a href="/add-a-destination">Add a destination</a>
-<div class="tab">
-  <button class="tablinks" onclick="openCity(event, 'NextTrips')">Next Trips</button>
-  <button class="tablinks" onclick="openCity(event, 'RecentTrips')">Recent Trips</button>
-</div>
 
-<!-- Tab content -->
-<div id="NextTrips" class="tabcontent">
-  <h3>London</h3>
-  <p>London is the capital city of England.</p>
-</div>
-
-<div id="RecentTrips" class="tabcontent">
-  <h3>Paris</h3>
-  <p>Paris is the capital of France.</p>
-</div>
+<a href="/country">Add a destination</a>
 
 
 
-
-<script>function openCity(evt, cityName) {
-    // Declare all variables
-    var i, tabcontent, tablinks;
-
-    // Get all elements with class="tabcontent" and hide them
-    tabcontent = document.getElementsByClassName("tabcontent");
-    for (i = 0; i < tabcontent.length; i++) {
-      tabcontent[i].style.display = "none";
-    }
-
-    // Get all elements with class="tablinks" and remove the class "active"
-    tablinks = document.getElementsByClassName("tablinks");
-    for (i = 0; i < tablinks.length; i++) {
-      tablinks[i].className = tablinks[i].className.replace(" active", "");
-    }
-
-    // Show the current tab, and add an "active" class to the button that opened the tab
-    document.getElementById(cityName).style.display = "block";
-    evt.currentTarget.className += " active";
-  }
-</script>
 
 <ul class="nav nav-tabs" id="myTab" role="tablist">
   <li class="nav-item" role="presentation">
-    <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#Wishlist" type="button"
-      role="tab" aria-controls="home" aria-selected="true">Wishlist</button>
+    <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab"
+      aria-controls="home" aria-selected="true">Wishlist</button>
   </li>
   <li class="nav-item" role="presentation">
     <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab"
@@ -57,22 +18,15 @@
   </li>
 </ul>
 <div class="tab-content" id="myTabContent">
-  <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">Countries</div>
-  <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">Test</div>
-</div>
-</div>
-  <ul class="nav nav-tabs" id="myTab" role="tablist">
-    <li class="nav-item" role="presentation">
-      <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#Wishlist" type="button" role="tab"
-        aria-controls="home" aria-selected="true">Wishlist</button>
-    </li>
-    <li class="nav-item" role="presentation">
-      <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab"
-        aria-controls="profile" aria-selected="false">Already Visited countries</button>
-    </li>
-  </ul>
-  <div class="tab-content" id="myTabContent">
-    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">Countries</div>
-    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">Test</div>
+  <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">{{#each
+    country.countryWishList}}
+    <p>{{this.name}}</p>
+    {{/each}}
+  </div>
+
+
+  <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">{{#each country.countryVisitor}}
+    <p>{{this.name}}</p>
+    {{/each}}
   </div>
 </div>

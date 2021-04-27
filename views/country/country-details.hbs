@@ -1,14 +1,16 @@
 <h1>Country details</h1>
 
 
-<form action="/country" method="POST">
+
   <div class="mb-3">
-<p>Name : {{response.name}}</p>
-      </div>
-      <div>
-    <button type="submit" class="btn btn-primary button-travel"><a href="/home/profile">Add to my wishlist</a></button>
-      </div>
-
-
-
-  </form>
+    <p>Name : {{data.name}}</p>
+  </div>
+  <div>
+    <a href="/country/{{data._id}}/countryWishList"><button type="submit" class="btn btn-primary button-travel" name="countryWishList"  id="countryWishList">Add to my wishlist</button></a>
+    
+  </div>
+    <div>
+      <a href="/country/{{data._id}}/countryVisitor"><button type="submit" class="btn btn-primary button-travel" name="countryVisitor"  id="countryVisitor">Add to my visited list</button></a>
+    
+  </div>
+  

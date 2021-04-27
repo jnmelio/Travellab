@@ -25,10 +25,14 @@ const userSchema = new Schema({
     type: String,
     enum:['', 'Holidaymaker', 'Business Traveller', 'Backpacker & Adventure Traveller', 'Expedition Member', 'Long Term Traveller', 'Traveller with Special Needs', 'Other']
   },
-  countryId: [{
+  countryWishList: [{
     type: Schema.Types.ObjectId,
     ref:'country'
-  }]
+  }],
+  countryVisitor: [{
+    type: Schema.Types.ObjectId,
+    ref:'country'
+  }],
 });
 
 const User = model("User", userSchema);

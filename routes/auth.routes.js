@@ -91,8 +91,8 @@ router.get("/signup/firstwishlist", (req, res, next) => {
 
 router.post("/signup/firstwishlist", (req, res, next) => {
   const { _id } = req.session.userInfo;
-  const {countryId} = req.body
-  User.findByIdAndUpdate(_id, {countryId}, {new: true})
+  const {countryWishList} = req.body
+  User.findByIdAndUpdate(_id, {countryWishList}, {new: true})
     .then((response) => {
       res.redirect('/home/profile')
     })
@@ -135,121 +135,7 @@ router.post("/home", (req, res, next) => {
     });
 });
 
-//MIDDLEWARE
-const authorize = (req, res, next) => {
-  if (req.session.userInfo) {
-    next();
-  } else {
-    res.redirect("/home");
-  }
-};
 
-//PROFILE ROUTES
-router.get("/home/profile", authorize, (req, res, next) => {
-  console.log(req.session.userInfo._id);
-  User.findById(req.session.userInfo._id)
-  .populate('countryId', 'name')
-  .then((data)=>{
-    console.log(data)
-    res.render("profilePages/profile.hbs", { user: req.session.userInfo, country: data});
-  })
-  .catch((err)=>{
-    console.log(err)
-  })
-});
-
-// ACCOUNT DETAILS ROUTE
-router.get("/profile/:id/details", (req, res, next) => {
-  const { _id } = req.session.userInfo;
-  console.log(_id);
-  User.findById(_id)
-  .then((data) => {
-    res.render('profilePages/profile-details.hbs',{data})
-  }).catch((err) => {
-    console.log(err)
-  });
-})
-
-//COUNTRY DETAILS ROUTES
-router.get('/country', (req, res, next)=>{
-    res.render("country/country-details.hbs");
-})
-
-router.post ('/country', (req, res, next)=>{
-  const { _id } = req.session.userInfo;
-  const {countryId} = req.body
-  console.log(countryId)
-  User.findByIdAndUpdate(_id, { $push: {countryId: countryId}}, {new:true})
-  .then((response)=>{
-    console.log(response)
-    res.redirect('/country')
-  })
-  .catch((err)=>{
-    console.log(err)
-  })
-
-})
-
-
-//EDIT ACCOUNT INFOS ROUTES
-router.get("/profile/:id/edit", (req, res, next) => {
-  const { _id } = req.session.userInfo;
-  
-  console.log(_id);
-  User.findById(_id)
-    .then((data) => {
-      res.render("profilePages/profile-edit", { data });
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-});
-
-router.post('/profile/:id/edit', (req, res,next)=>{
-  const {_id} = req.session.userInfo
-  const {username, age, favoriteCountry, favoriteWayOfTraveling, typeOfTraveller} = req.body
-  User.findByIdAndUpdate(_id, {username, age, favoriteCountry, favoriteWayOfTraveling, typeOfTraveller})
-    .then((data) => {
-      res.redirect("/profile/:id/details")
-    }).catch((err) => {
-      console.log(err)
-    });
-})
-
-//Delete your account route
-router.post('/profile/:id/delete', (req, res, next)=>{
-  const {_id} = req.session.userInfo
-  User.findByIdAndDelete(_id)
-  .then(() => {
-    req.app.locals.isUserLoggedIn = false;
-    req.session.destroy();
-    res.redirect('/home')
-  }).catch((err) => {
-    console.log(err)
-  });
-})
-
-//ADD A DESTINATION ROUTE
-router.get('/add-a-destination', (req, res, next)=>{
-  countryModel.find()
-    .then((response) => {
-      res.render('country/addADestination.hbs', {country: response});
-    })
-    .catch((err) => {
-      next(err);
-    });
-})
-
-router.post("/add-a-destination", (req, res, next) => {
-  const { countryId } = req.body;
-  countryModel.findById(countryId)
-    .then((response) => {
-      res.render('country/country-details.hbs', {response})
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-});
 
 //LOG OUT ROUTE
 router.get("/logout", (req, res, next) => {
