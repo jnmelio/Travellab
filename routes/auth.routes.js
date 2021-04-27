@@ -4,20 +4,20 @@ const bcrypt = require("bcryptjs");
 require("dotenv/config");
 const User = require("../models/User.model");
 const axios = require("axios");
+const countryModel = require("../models/Country.model");
 let userInfo = {};
+let newCountry = []
 function randomCountry(response) {
   let randomName = []
   for (let i = 0; i < 10; i++) {
     randomName.push(response[Math.floor(Math.random() * response.length)])
   }
-  console.log(randomName)
   return randomName
 }
 
-
+//YANIS ROAD
 router.get('/search', (req,res,next)=>{
     let clientId = process.env.CLIENT_ID
-    let {name} = req.params
     let {query} = req.query; 
     let url = "https://api.unsplash.com/search/photos?client_id="+clientId+"&query="+query 
 
@@ -56,7 +56,7 @@ router.post("/signup", (req, res, next) => {
     password,
     email,
     age,
-    photo,
+    profilePic,
     favoriteCountry,
     favoriteWayOfTraveling,
     country,
@@ -92,7 +92,7 @@ router.post("/signup", (req, res, next) => {
     password: hash,
     email,
     age,
-    photo,
+    profilePic,
     favoriteCountry,
     favoriteWayOfTraveling,
     country,
@@ -109,10 +109,9 @@ router.post("/signup", (req, res, next) => {
 
 //FIRST WISHILIST ROUTES
 router.get("/signup/firstwishlist", (req, res, next) => {
-  axios
-    .get(`https://restcountries.eu/rest/v2/all`)
+  countryModel.find()
     .then((response) => {
-      let random = randomCountry(response.data)
+      let random = randomCountry(response)
       res.render("profilePages/firstwish.hbs", { name: random });
     })
     .catch((err) => {
@@ -121,14 +120,14 @@ router.get("/signup/firstwishlist", (req, res, next) => {
 });
 
 router.post("/signup/firstwishlist", (req, res, next) => {
-  const { id } = req.session.userInfo;
-  const {countryId} = req.body
-  User.findByIdAndUpdate(id, {countryId})
-    .then((data) => {
+  const { _id } = req.session.userInfo;
+  const {countryWishList} = req.body
+  User.findByIdAndUpdate(_id, {countryWishList}, {new: true})
+    .then((response) => {
       res.redirect('/home/profile')
     })
-    .catch(() => {
-      console.log("nope");
+    .catch((err) => {
+      console.log(err);
     });
 });
 
@@ -166,84 +165,6 @@ router.post("/home", (req, res, next) => {
     });
 });
 
-//MIDDLEWARE
-const authorize = (req, res, next) => {
-  if (req.session.userInfo) {
-    next();
-  } else {
-    res.redirect("/home");
-  }
-};
-
-//PROFILE ROUTES
-router.get("/home/profile", authorize, (req, res, next) => {
-  const {countryId} = req.body
-  res.render("profilePages/profile.hbs", { user: req.session.userInfo, country: countryId });
-});
-
-// ACCOUNT DETAILS ROUTE
-router.get("/profile/:id/details", (req, res, next) => {
-  const { _id } = req.session.userInfo;
-  console.log(_id);
-  User.findById(_id)
-  .then((data) => {
-    res.render('profilePages/profile-details.hbs',{data})
-  }).catch((err) => {
-    console.log(err)
-  });
-})
-
-//COUNTRY DETAILS ROUTES
-router.get('/country', (req, res, next)=>{
-  axios
-  .get(`https://restcountries.eu/rest/v2/all`)
-  .then((response) => {
-    res.render("country/country-details.hbs", { country: response.data });
-  })
-  .catch((err) => {
-    next(err);
-  });
-})
-
-
-//EDIT ACCOUNT INFOS ROUTES
-router.get("/profile/:id/edit", (req, res, next) => {
-  const { _id } = req.session.userInfo;
-  
-  console.log(_id);
-  User.findById(_id)
-    .then((data) => {
-      res.render("profilePages/profile-edit", { data });
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-});
-
-router.post('/profile/:id/edit', (req, res,next)=>{
-  const {_id} = req.session.userInfo
-  const {username, age, favoriteCountry, favoriteWayOfTraveling, typeOfTraveller} = req.body
-  User.findByIdAndUpdate(_id, {username, age, favoriteCountry, favoriteWayOfTraveling, typeOfTraveller})
-    .then((data) => {
-      res.redirect("/profile/:id/details")
-    }).catch((err) => {
-      console.log(err)
-    });
-})
-
-//Delete your account route
-router.post('/profile/:id/delete', (req, res, next)=>{
-  const {_id} = req.session.userInfo
-  User.findByIdAndDelete(_id)
-  .then(() => {
-    req.app.locals.isUserLoggedIn = false;
-    req.session.destroy();
-    res.redirect('/home')
-  }).catch((err) => {
-    console.log(err)
-  });
-})
-
 
 //LOG OUT ROUTE
 router.get("/logout", (req, res, next) => {
@@ -251,7 +172,6 @@ router.get("/logout", (req, res, next) => {
   req.session.destroy();
   res.redirect("/");
 });
-
 
 
 //EXPORTS
