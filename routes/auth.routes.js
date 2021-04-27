@@ -1,6 +1,7 @@
 // variables and require
 const router = require("express").Router();
 const bcrypt = require("bcryptjs");
+require("dotenv/config");
 const User = require("../models/User.model");
 const axios = require("axios");
 let userInfo = {};
@@ -12,6 +13,37 @@ function randomCountry(response) {
   console.log(randomName)
   return randomName
 }
+
+
+router.get('/search', (req,res,next)=>{
+    let clientId = process.env.CLIENT_ID
+    let {name} = req.params
+    let {query} = req.query; 
+    let url = "https://api.unsplash.com/search/photos?client_id="+clientId+"&query="+query 
+
+    //make a request to the api
+    if(!query){
+      res.render('country/image-search.hbs')
+    }
+    else{
+      axios
+      .get(url)
+      .then(function(data){
+        if(data.data.total==0 /*|| query.value!=name*/){
+          res.render('country/image-search.hbs', {msg: "Please enter a valid country name"})
+        }
+        else{
+          res.render('country/image-search.hbs', {images: data.data.results})
+        }
+        
+      })
+      .catch((err)=>console.log(err))
+
+  
+    }
+    
+  
+})
 
 //SIGN UP ROUTES
 router.get("/signup", (req, res, next) => {
@@ -145,8 +177,8 @@ const authorize = (req, res, next) => {
 
 //PROFILE ROUTES
 router.get("/home/profile", authorize, (req, res, next) => {
-  console.log(req.session.userInfo._id);
-  res.render("profilePages/profile.hbs", { user: req.session.userInfo });
+  const {countryId} = req.body
+  res.render("profilePages/profile.hbs", { user: req.session.userInfo, country: countryId });
 });
 
 // ACCOUNT DETAILS ROUTE
@@ -219,6 +251,8 @@ router.get("/logout", (req, res, next) => {
   req.session.destroy();
   res.redirect("/");
 });
+
+
 
 //EXPORTS
 module.exports = router;
