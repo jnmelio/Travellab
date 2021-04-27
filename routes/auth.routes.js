@@ -29,7 +29,7 @@ router.get('/search', (req,res,next)=>{
       axios
       .get(url)
       .then(function(data){
-        if(data.data.total==0 /*|| query.value!=name*/){
+        if(data.data.total==0){
           res.render('country/image-search.hbs', {msg: "Please enter a valid country name"})
         }
         else{
