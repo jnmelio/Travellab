@@ -4,7 +4,8 @@ const bcrypt = require("bcryptjs");
 const User = require("../models/User.model");
 const axios = require("axios");
 const countryModel = require("../models/Country.model");
-let userInfo = {};
+const uploader = require('../middleware/cloudinary');
+
 let newCountry = []
 function randomCountry(response) {
   let randomName = []
@@ -105,6 +106,15 @@ router.post('/profile/:id/edit', (req, res,next)=>{
   User.findByIdAndUpdate(_id, {username, age, favoriteCountry, favoriteWayOfTraveling, typeOfTraveller})
     .then((data) => {
       res.redirect("/profile/:id/details")
+    }).catch((err) => {
+      console.log(err)
+    });
+})
+
+router.post("/upload", authorize, uploader.single('image'), (req, res, next)=>{
+  User.findByIdAndUpdate(req.session.userInfo._id, {profilePic: req.file.path})
+    .then((data) => {
+      res.redirect('/home/profile')
     }).catch((err) => {
       console.log(err)
     });

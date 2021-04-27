@@ -15,7 +15,7 @@ const userSchema = new Schema({
     required: true
   },
   age : Date, 
-  photo: String, 
+  profilePic: String, 
   favoriteCountry: String, 
   favoriteWayOfTraveling: {
     type: String,

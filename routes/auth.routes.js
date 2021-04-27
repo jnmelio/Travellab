@@ -19,7 +19,6 @@ function randomCountry(response) {
 //YANIS ROAD
 router.get('/search', (req,res,next)=>{
     let clientId = process.env.CLIENT_ID
-    let {name} = req.params
     let {query} = req.query; 
     let url = "https://api.unsplash.com/search/photos?client_id="+clientId+"&query="+query 
 
@@ -31,7 +30,7 @@ router.get('/search', (req,res,next)=>{
       axios
       .get(url)
       .then(function(data){
-        if(data.data.total==0 /*|| query.value!=name*/){
+        if(data.data.total==0){
           res.render('country/image-search.hbs', {msg: "Please enter a valid country name"})
         }
         else{
@@ -53,7 +52,7 @@ router.post("/signup", (req, res, next) => {
     password,
     email,
     age,
-    photo,
+    profilePic,
     favoriteCountry,
     favoriteWayOfTraveling,
     country,
@@ -89,7 +88,7 @@ router.post("/signup", (req, res, next) => {
     password: hash,
     email,
     age,
-    photo,
+    profilePic,
     favoriteCountry,
     favoriteWayOfTraveling,
     country,
