@@ -50,6 +50,7 @@ router.get("/profile/:id/details", (req, res, next) => {
 
 //ADD A DESTINATION ROUTE
 router.get('/country', (req, res, next)=>{
+
   countryModel.find()
     .then((response) => {
       res.render('country/addADestination.hbs', {country: response});

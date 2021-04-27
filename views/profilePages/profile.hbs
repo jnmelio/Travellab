@@ -1,13 +1,38 @@
+<div>
 <h1>Hey {{user.username}}, Welcome to your profile</h1>
+</div>
 
 
-
+<div>
+<a class="nav-link" href="/profile/{{user._id}}/details">Go to my account</a>
 <a href="/country">Add a destination</a>
+</div>
+
+<div class="tabs">
+  <div class="tab-2">
+    <label for="tab2-1">Wishlist</label>
+    <input id="tab2-1" name="tabs-two" type="radio" checked="checked" class="darkmode-ignore">
+    <div>
+      <p>{{#each
+    country.countryWishList}}
+    <p>{{this.name}}</p>
+    {{/each}}</p>
+    </div>
+  </div>
+  <div class="tab-2">
+    <label for="tab2-2">Already Visited countries</label>
+    <input id="tab2-2" name="tabs-two" type="radio" class="darkmode-ignore">
+    <div>
+      <p>{{#each country.countryVisitor}}
+    <p>{{this.name}}</p>
+    {{/each}}</p>
+    </div>
+  </div>
+</div>
 
 
 
-
-<ul class="nav nav-tabs" id="myTab" role="tablist">
+{{!-- <ul class="nav nav-tabs" id="myTab" role="tablist">
   <li class="nav-item" role="presentation">
     <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab"
       aria-controls="home" aria-selected="true">Wishlist</button>
@@ -29,4 +54,4 @@
     <p>{{this.name}}</p>
     {{/each}}
   </div>
-</div>
+</div> --}}

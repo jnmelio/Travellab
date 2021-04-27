@@ -15,6 +15,7 @@ function randomCountry(response) {
   return randomName
 }
 
+
 //YANIS ROAD
 router.get('/search', (req,res,next)=>{
     let clientId = process.env.CLIENT_ID
@@ -36,14 +37,9 @@ router.get('/search', (req,res,next)=>{
         else{
           res.render('country/image-search.hbs', {images: data.data.results})
         }
-        
       })
       .catch((err)=>console.log(err))
-
-  
     }
-    
-  
 })
 
 //SIGN UP ROUTES
