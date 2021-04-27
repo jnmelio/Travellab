@@ -1,6 +1,7 @@
 // variables and require
 const router = require("express").Router();
 const bcrypt = require("bcryptjs");
+require("dotenv/config");
 const User = require("../models/User.model");
 const axios = require("axios");
 const countryModel = require("../models/Country.model");
@@ -14,6 +15,36 @@ function randomCountry(response) {
   return randomName
 }
 
+//YANIS ROAD
+router.get('/search', (req,res,next)=>{
+    let clientId = process.env.CLIENT_ID
+    let {name} = req.params
+    let {query} = req.query; 
+    let url = "https://api.unsplash.com/search/photos?client_id="+clientId+"&query="+query 
+
+    //make a request to the api
+    if(!query){
+      res.render('country/image-search.hbs')
+    }
+    else{
+      axios
+      .get(url)
+      .then(function(data){
+        if(data.data.total==0 /*|| query.value!=name*/){
+          res.render('country/image-search.hbs', {msg: "Please enter a valid country name"})
+        }
+        else{
+          res.render('country/image-search.hbs', {images: data.data.results})
+        }
+        
+      })
+      .catch((err)=>console.log(err))
+
+  
+    }
+    
+  
+})
 
 //SIGN UP ROUTES
 router.get("/signup", (req, res, next) => {
@@ -136,13 +167,13 @@ router.post("/home", (req, res, next) => {
 });
 
 
-
 //LOG OUT ROUTE
 router.get("/logout", (req, res, next) => {
   req.app.locals.isUserLoggedIn = false;
   req.session.destroy();
   res.redirect("/");
 });
+
 
 //EXPORTS
 module.exports = router;
