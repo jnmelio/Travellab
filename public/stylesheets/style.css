@@ -140,3 +140,9 @@ h1 {
 #mapid { 
 	height: 600px; 
 }
+.carousel_size {
+  margin-left: auto;
+  margin-right: auto;
+  height: 600px;
+  width: 800px;
+}

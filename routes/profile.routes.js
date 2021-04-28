@@ -66,7 +66,7 @@ router.get("/country/:id", (req, res, next) => {
     .then((data) => {
       let clientId = process.env.CLIENT_ID;
       let { name } = data;
-      let url =
+      let url = 
         "https://api.unsplash.com/search/photos?client_id=" +
         clientId +
         "&query=" +
