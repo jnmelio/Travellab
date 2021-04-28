@@ -4,10 +4,13 @@
   <button type="submit">Search</button>
 </form>
 <div id="result">
-  {{#each images}}
-
-  <a href="{{this.links.download}}"><img src='{{this.urls.thumb}}' alt="{{this.alt_description}}"></a>
+    
+    {{#each images}}
+  <button><a href="{{this.links.download}}"><img src='{{this.urls.regular}}' alt="{{this.alt_description}}"></a></button>
+  
   {{/each}}
+  
+  
 </div>
 
 {{#if msg}}
