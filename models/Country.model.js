@@ -25,6 +25,7 @@ const countrySchema = new Schema({
     },
   ],
   flag: String,
+  countryPicture: String,
 });
 
 const countryModel = model("country", countrySchema);

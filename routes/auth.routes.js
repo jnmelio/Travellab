@@ -49,34 +49,6 @@ router.post("/home", (req, res, next) => {
     });
 });
 
-//PHOTOS
-router.get("/search", (req, res, next) => {
-  let clientId = process.env.CLIENT_ID;
-  let { query } = req.query;
-  let url =
-    "https://api.unsplash.com/search/photos?client_id=" +
-    clientId +
-    "&query=" +
-    query;
-
-  //make a request to the api
-  if (!query) {
-    res.render("country/image-search.hbs");
-  } else {
-    axios
-      .get(url)
-      .then(function (data) {
-        if (data.data.total == 0) {
-          res.render("country/image-search.hbs", {
-            msg: "Please enter a valid country name",
-          });
-        } else {
-          res.render("country/image-search.hbs", { images: data.data.results });
-        }
-      })
-      .catch((err) => console.log(err));
-  }
-});
 
 //SIGN UP ROUTES
 router.get("/signup", (req, res, next) => {

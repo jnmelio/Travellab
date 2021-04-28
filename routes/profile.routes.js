@@ -5,6 +5,7 @@ const User = require("../models/User.model");
 const axios = require("axios");
 const countryModel = require("../models/Country.model");
 const uploader = require("../middleware/cloudinary");
+require("dotenv/config");
 
 //MIDDLEWARE
 const authorize = (req, res, next) => {
@@ -63,7 +64,32 @@ router.get("/country/:id", (req, res, next) => {
   countryModel
     .findById(id)
     .then((data) => {
-      res.render("country/country-details.hbs", { data });
+      let clientId = process.env.CLIENT_ID;
+      let { name } = data;
+      let url =
+        "https://api.unsplash.com/search/photos?client_id=" +
+        clientId +
+        "&query=" +
+        name;
+
+      //make a request to the api
+      
+        axios
+          .get(url)
+          .then(function (response) {
+            if (response.data.total == 0) {
+              res.render("country/country-details.hbs", {
+                msg: "Please enter a valid country name",
+              });
+            } else {
+              console.log(response.data.results[0].urls.thumb)
+              res.render("country/country-details.hbs", {
+                images: response.data.results, data
+              });
+            }
+          })
+          .catch((err) => console.log(err));
+
     })
     .catch((err) => {
       console.log(err);
@@ -151,6 +177,35 @@ router.post(
       });
   }
 );
+
+/*PHOTOS
+router.get("/search", (req, res, next) => {
+  let clientId = process.env.CLIENT_ID;
+  let { query } = req.query;
+  let url =
+    "https://api.unsplash.com/search/photos?client_id=" +
+    clientId +
+    "&query=" +
+    query;
+
+  //make a request to the api
+  if (!query) {
+    res.render("country/image-search.hbs");
+  } else {
+    axios
+      .get(url)
+      .then(function (data) {
+        if (data.data.total == 0) {
+          res.render("country/image-search.hbs", {
+            msg: "Please enter a valid country name",
+          });
+        } else {
+          res.render("country/image-search.hbs", { images: data.data.results });
+        }
+      })
+      .catch((err) => console.log(err));
+  }
+});*/
 
 //DELETE THE ACCOUNT
 router.post("/profile/:id/delete", (req, res, next) => {
