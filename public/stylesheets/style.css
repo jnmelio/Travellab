@@ -137,3 +137,6 @@ h1 {
 .tabs .tab-2:last-child [type="radio"]:checked + div {
   margin-left: -100%;
 }
+#mapid { 
+	height: 600px; 
+}

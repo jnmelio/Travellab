@@ -4,6 +4,21 @@
 
 <div class="mb-3">
   <p>Name : {{data.name}}</p>
+  <p>Native name : {{data.nativeName}}</p>
+  <p>Capital : {{data.capital}}</p>
+    {{!-- {{#each data}}
+  <p>Calling Code : {{this.callingCodes}}</p>
+
+  <p>Continent : {{data.region}}</p>
+  <p>Subregion : {{data.subregion}}</p>
+  <p>Population : {{data.population}}</p>
+  <p>Population name : {{data.demonym}}</p>
+      {{#each data}}
+  <p>Timezone : {{this.timezones}}</p>
+  <p>Borders : {{this.borders}}</p>
+  <p>Currencies : {{this.currencies.name}}, {{this.currencies.symbol}}</p>
+  <p>Languages : {{this.languages.name}}</p>
+      {{/each}} --}}
 </div>
 <div>
   <a href="/country/{{data._id}}/countryWishList"><button type="submit" class="btn btn-primary button-travel"

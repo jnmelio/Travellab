@@ -50,7 +50,7 @@ router.get("/country", (req, res, next) => {
   countryModel
     .find()
     .then((response) => {
-      res.render("country/addADestination.hbs", { country: response });
+      res.render("country/addADestination.hbs", { country: JSON.stringify(response) });
     })
     .catch((err) => {
       next(err);

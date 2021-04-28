@@ -1,16 +1,19 @@
-<h1>Add</h1>
+<h3>Pick a destination on the map</h3>
 
-<form action="/country" method='GET'>
-  <input type="text" name='query' id="myInput" placeholder="Search a country">
-  <button type="submit">Search</button>
-</form>
 
-<ul id="myUL">
-  <li> {{#each country}}
-    <a href="/country/{{this._id}}">{{this.name}}</a>
-    {{/each}}
-  </li>
-</ul>
-<div>
-  <button type="submit" class="btn btn-primary button-travel">Go to my profile</button>
-</div>
+<div  id="mapid"></div>
+
+<script>
+	const map = L.map('mapid').setView([51.505, -0.09], 3);
+
+	L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+	attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+	}).addTo(map);
+  let country = {{{country}}}
+  for (let i = 0; i < country.length; i++){
+	L.marker(country[i].latlng).addTo(map)
+	.bindPopup(`<a href="/country/${country[i]._id}">${country[i].name}</a>`)
+  }
+</script>
+
+

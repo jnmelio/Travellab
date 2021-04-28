@@ -8,6 +8,7 @@ const countrySchema = new Schema({
   region: String,
   subregion: String,
   population: Number,
+  latlng: [Number],
   demonym: String,
   timezones: [String],
   borders: [String],
