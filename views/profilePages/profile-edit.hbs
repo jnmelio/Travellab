@@ -1,26 +1,31 @@
+<div id="catchPhrase">
+  <h1>Update your account info</h1>
+</div>
+
+
 <form method="POST" action="/upload" enctype="multipart/form-data">
-  <input type="file" name="image" accept="image/png, image/jpg">
-  <button type="submit">Submit</button>
+  <input type="file" name="image" accept="image/png, image/jpg" >
+  <button type="submit" class="btn btn-primary button-travel darkmode-ignore">Submit</button>
 </form>
 
 <form action='/profile/edit' method='POST'>
+  <div class="mb-3">
+  <label for='title' class="form-label" id="marginText">Username</label>
+  <input type='text' name="username" value='{{user.username}}' class="form-control">
+  </div>
+<div class="mb-3">
+  <label for='' class="form-label" id="marginText">Age</label>
+  <input type='text' name='age' value='{{user.age}}' class="form-control">
 
-  <label for='title'>Username</label>
-  <input type='text' name="username" value='{{user.username}}'>
-
-  <br>
-
-  <label for=''>Age</label>
-  <input type='text' name='age' value='{{user.age}}'>
-
-  <br>
-
-  <label for=''>Favorite Country</label>
-  <input type='text' name='favoriteCountry' value='{{user.favoriteCountry}}'>
-
-  <br>
-  <label for="favoriteWayOfTraveling">My favorite way of travelling is:</label>
-  <select name="favoriteWayOfTraveling" id="favoriteWayOfTraveling">
+</div>
+<div class="mb-3">
+  <label for='' class="form-label" id="marginText">Favorite Country</label>
+  <input type='text' name='favoriteCountry' value='{{user.favoriteCountry}}' class="form-control">
+  
+</div>
+<div class="mb-3">
+  <label for="favoriteWayOfTraveling" class="form-label" id="marginText">My favorite way of travelling is:</label>
+  <select name="favoriteWayOfTraveling" id="favoriteWayOfTraveling" class="form-select">
     <option selected=value="Train">Train</option>
     <option selected=value="Plane">Plane</option>
     <option selected=value="Boat">Boat</option>
@@ -28,9 +33,11 @@
     <option selected=value="Bike">Bike</option>
     <option selected=value="Other">Other</option>
   </select>
-  <br>
-  <label for="typeOfTraveller">Which type describes you best:</label>
-  <select name="typeOfTraveller" id="typeoftraveller">
+  
+</div>
+<div class="mb-3">
+  <label for="typeOfTraveller" class="form-label" id="marginText">Which type describes you best:</label>
+  <select name="typeOfTraveller" id="typeoftraveller" class="form-select">
     <option selected=value="Holidaymaker">Holidaymaker</option>
     <option selected=value="Business Traveller">Business Traveller</option>
     <option selected=value="Backpacker & Adventure Traveller">Backpacker & Adventure Traveller</option>
@@ -38,10 +45,9 @@
     <option selected=value="Long Term Traveller">Long Term Traveller</option>
     <option selected=value="Traveller with Special Needs">Traveller with Special Needs</option>
     <option selected=value="Other">Other</option>
-
-
   </select>
+</div>
 
-  <button type="submit">Save Changes</button>
+  <button type="submit" class="btn btn-primary button-travel darkmode-ignore container-fluid">Save Changes</button>
 
 </form>

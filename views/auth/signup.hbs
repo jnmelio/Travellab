@@ -1,33 +1,36 @@
-<h1>Sign up to our website</h1>
+<div id="catchPhrase">
+  <h1>Sign up to our website</h1>
+</div>
+
 
 <form action="/signup" method="POST">
 
   <div class="mb-3">
-    <label>Username*</label>
+    <label  id="marginText">Username*</label>
     <input name="username" type="text" placeholder="Enter your username" class="form-control">
   </div>
 
   <div class="mb-3">
-    <label>Password*</label>
-    <input name="password" type="password" placeholder="Enter your Password" class="form-control  darkmode-ignore">
+    <label  id="marginText">Password*</label>
+    <input name="password" type="password" placeholder="Enter your Password" class="form-control">
   </div>
 
   <div class="mb-3">
-    <label class="form-label">Email*</label>
-    <input name="email" type="text" placeholder="Enter your email" class="form-control  darkmode-ignore">
+    <label class="form-label" id="marginText">Email*</label>
+    <input name="email" type="text" placeholder="Enter your email" class="form-control">
   </div>
   <div class="mb-3">
-    <label class="form-label">Birthday</label>
-    <input name="age" type="date" placeholder="Enter your date of birth" class="form-control  darkmode-ignore">
+    <label class="form-label" id="marginText">Age</label>
+    <input name="age" type="text" placeholder="Enter your age" class="form-control">
   </div>
   <div class="mb-3">
-    <label class="form-label">Favorite country</label>
+    <label class="form-label" id="marginText">Favorite country</label>
     <input name="favoriteCountry" type="text" placeholder="Enter the name of your favorite country"
-      class="form-control  darkmode-ignore">
+      class="form-control">
   </div>
   <div class="mb-3">
-    <label class="form-label">Favorite way of traveling</label>
-    <select name="way of traveling" id="travel-select" class="form-select  darkmode-ignore">
+    <label class="form-label" id="marginText">Favorite way of traveling</label>
+    <select name="way of traveling" id="travel-select" class="form-select">
       <option value="">--Please choose an option--</option>
       <option value="train">Train</option>
       <option value="plane">Airplane</option>
@@ -39,7 +42,7 @@
   </div>
 
 
-  <button type="submit" class="btn btn-primary button-travel darkmode-ignore">Sign Up</button>
+  <button type="submit" class="btn btn-primary button-travel darkmode-ignore container-fluid">Sign Up</button>
 </form>
 
 {{#if msg}}

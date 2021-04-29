@@ -50,6 +50,15 @@ router.post("/home", (req, res, next) => {
     });
 });
 
+//ABOUT ROUTE
+router.get('/about', (req, res, next)=>{
+  const { _id } = req.session.userInfo
+  User.findById(_id)
+  .then((data) => {
+    res.render('about.hbs', {user: data})
+  }).catch((err) => {
+  });
+})
 
 //SIGN UP ROUTES
 router.get("/signup", (req, res, next) => {
@@ -139,18 +148,6 @@ router.post("/signup/firstwishlist", (req, res, next) => {
     });
 });
 
-//ABOUT ROUTE
-router.get('/about', (req, res, next)=>{
-  const { _id } = req.session.userInfo
-
-  User.findById(_id)
-  .then((data) => {
-    res.render('about.hbs', {user: data})
-  }).catch((err) => {
-    
-  });
-  
-})
 
 //LOG OUT ROUTE
 router.get("/logout", (req, res, next) => {

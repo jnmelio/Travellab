@@ -1,18 +1,42 @@
-<p>Username : {{user.username}}</p>
-<p>Email: {{user.email}}</p>
-<p>Date of Birth: {{user.age}}</p>
-<p>Favorite Country: {{user.favoriteCountry}}</p>
-<p>Favorite Way of Travelling: {{user.favoriteWayOfTraveling}}</p>
-<p>Type of Traveller: {{user.typeOfTraveller}}</p>
-<p>Photo: <img src='{{user.profilePic}}'></p>
+<div id="catchPhrase">
+  <h1>Here are your account infos</h1>
+</div>
 
+<div class="container">
+  <div class="row align-items-start">
+    <div class="col borderCountry darkmode-ignore">
+      <p><h6>Username</h6><div id="solidBorder"></div>{{user.username}}</p>
+    </div>
+    <div class="col borderCountry darkmode-ignore">
+      <p><h6>Email</h6><div id="solidBorder"></div>{{user.email}}</p>
+    </div>
+    <div class="col borderCountry darkmode-ignore">
+      <p><h6>Age</h6><div id="solidBorder"></div>{{user.age}}</p>
+    </div>
+    <div class="col borderCountry darkmode-ignore">
+      <p><h6>Favorite Country</h6><div id="solidBorder"></div>{{user.favoriteCountry}}</p>
+    </div>
+    <div class="col borderCountry darkmode-ignore">
+      <p><h6>Favorite Way of Travelling</h6><div id="solidBorder"></div>{{user.favoriteWayOfTraveling}}</p>
+    </div>
+    <div class="col borderCountry darkmode-ignore">
+      <p><h6>Type of Traveller</h6><div id="solidBorder"></div>{{user.typeOfTraveller}}</p>
+    </div>
+    <div class="col borderCountry darkmode-ignore">
+      <h6>Photo</h6>
+      <div id="solidBorder"></div>
+      <img src='{{user.profilePic}}'> 
+    </div>
+  </div>
+</div>
 
-
+<div class="buttonProfile">
 <form action='/profile/edit' method="GET">
-  <button class="btn btn-warning">Edit</button>
+  <button class="btn btn-warning buttonMarginAccount darkmode-ignore">Edit</button>
 </form>
 <br>
 <form action='/profile/delete' method="POST">
-  <button class="btn btn-danger">Delete your account</button>
+  <button class="btn btn-danger buttonMargin darkmode-ignore">Delete your account</button>
 </form>
-<button class="btn btn-primary"><a href="/home/profile">Go to your profile</a></button>
+<button class="btn btn-primary button-travel buttonMargin darkmode-ignore"><a href="/home/profile" id="btnBack">Go back to your profile</a></button>
+</div>
