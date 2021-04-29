@@ -141,7 +141,8 @@ router.post("/signup/firstwishlist", (req, res, next) => {
 
 //ABOUT ROUTE
 router.get('/about', (req, res, next)=>{
-  const { _id } = req.session.userInfo
+  if (req.session.userInfo){
+    const { _id } = req.session.userInfo
 
   User.findById(_id)
   .then((data) => {
@@ -149,8 +150,11 @@ router.get('/about', (req, res, next)=>{
   }).catch((err) => {
     
   });
+  } 
+  else{
+    res.render('about.hbs')
   
-})
+}})
 
 //LOG OUT ROUTE
 router.get("/logout", (req, res, next) => {

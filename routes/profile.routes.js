@@ -23,11 +23,11 @@ router.get("/home/profile", authorize, (req, res, next) => {
     .populate("countryWishList", "name latlng")
     .populate("countryVisitor", "name latlng")
     .then((data) => {
-      console.log(data)
       res.render("profilePages/profile.hbs", {
         user: data,
         country: JSON.stringify(data),
       });
+      
     })
     .catch((err) => {
       console.log(err);

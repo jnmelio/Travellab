@@ -15,7 +15,10 @@ const userSchema = new Schema({
     required: true,
   },
   age: Date,
-  profilePic: String,
+  profilePic:{
+    type: String,
+    default: '/images/profileIcon.png'
+  },
   favoriteCountry: String,
   favoriteWayOfTraveling: {
     type: String,
