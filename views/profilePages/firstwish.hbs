@@ -7,7 +7,7 @@
   <form action="/signup/firstwishlist" method="POST">
     <div class="mb-3">
       <label class="form-label">Pick a country you would like to visit</label>
-      <select multiple name="countryWishList" id="countryWishList" class="form-select">
+      <select name="countryWishList" id="countryWishList" class="form-select">
         {{#each name}}
         <option value={{this._id}}> {{this.name}}</option>
         {{/each}}
@@ -16,10 +16,5 @@
     <div>
       <button type="submit" class="btn btn-primary button-travel">Go to my profile</button>
     </div>
-
-
-
   </form>
-
-
 </div>

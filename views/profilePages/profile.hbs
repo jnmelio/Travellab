@@ -46,3 +46,18 @@
     </div>
   </div>
 </div>
+
+{{!-- <div  id="mapid"></div>
+
+<script>
+	const map = L.map('mapid').setView([51.505, -0.09], 3);
+
+	L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+	attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+	}).addTo(map);
+  let myCountry = {{{country}}}
+  for (let i = 0; i < myCountry.length; i++){
+	L.marker(myCountry[i].latlng).addTo(map)
+	.bindPopup(`<a href="/country/${myCountry[i]._id}">${myCountry[i].name}</a>`)
+  }
+</script> --}}

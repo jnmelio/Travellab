@@ -128,6 +128,7 @@ router.get("/signup/firstwishlist", (req, res, next) => {
 router.post("/signup/firstwishlist", (req, res, next) => {
   const { _id } = req.session.userInfo;
   const { countryWishList } = req.body;
+  const {name} = req.body
   User.findByIdAndUpdate(_id, { countryWishList }, { new: true })
     .then((response) => {
       res.redirect("/home/profile");
@@ -136,6 +137,11 @@ router.post("/signup/firstwishlist", (req, res, next) => {
       console.log(err);
     });
 });
+
+//ABOUT ROUTE
+router.get('/about', (req, res, next)=>{
+  res.render('about.hbs')
+})
 
 //LOG OUT ROUTE
 router.get("/logout", (req, res, next) => {

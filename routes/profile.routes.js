@@ -18,6 +18,7 @@ const authorize = (req, res, next) => {
 
 //PROFILE ROUTES
 router.get("/home/profile", authorize, (req, res, next) => {
+  const {_id} = req.params
   User.findById(req.session.userInfo._id)
     .populate("countryWishList", "name")
     .populate("countryVisitor", "name")
@@ -35,7 +36,6 @@ router.get("/home/profile", authorize, (req, res, next) => {
 //DELETE COUNTRY IN LISTS
 router.post("/home/profile/:countryId", (req, res, next) => {
   const { countryId } = req.params;
-  console.log(countryId);
   countryModel
     .findByIdAndDelete(countryId)
     .then((data) => {
@@ -51,7 +51,9 @@ router.get("/country", (req, res, next) => {
   countryModel
     .find()
     .then((response) => {
-      res.render("country/addADestination.hbs", { country: JSON.stringify(response) });
+      res.render("country/addADestination.hbs", {
+        country: JSON.stringify(response),
+      });
     })
     .catch((err) => {
       next(err);
@@ -66,30 +68,29 @@ router.get("/country/:id", (req, res, next) => {
     .then((data) => {
       let clientId = process.env.CLIENT_ID;
       let { name } = data;
-      let url = 
+      let url =
         "https://api.unsplash.com/search/photos?client_id=" +
         clientId +
         "&query=" +
         name;
 
       //make a request to the api
-      
-        axios
-          .get(url)
-          .then(function (response) {
-            if (response.data.total == 0) {
-              res.render("country/country-details.hbs", {
-                msg: "Please enter a valid country name",
-              });
-            } else {
-              console.log(response.data.results[0].urls.thumb)
-              res.render("country/country-details.hbs", {
-                images: response.data.results, data
-              });
-            }
-          })
-          .catch((err) => console.log(err));
 
+      axios
+        .get(url)
+        .then(function (response) {
+          if (response.data.total == 0) {
+            res.render("country/country-details.hbs", {
+              msg: "Please enter a valid country name",
+            });
+          } else {
+            res.render("country/country-details.hbs", {
+              images: response.data.results,
+              data,
+            });
+          }
+        })
+        .catch((err) => console.log(err));
     })
     .catch((err) => {
       console.log(err);
