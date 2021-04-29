@@ -24,11 +24,17 @@ h1 {
   margin: 5px;
   font-family: "Open Sans", sans-serif;
 }
-
+#navtext {
+color: #fbfcf8;
+font-size: 20px;
+}
+.navbarcolor {
+  background-color: #91d7a4;
+  border-color: #91d7a4;
+}
 .button-travel {
   background-color: #91d7a4;
   border-color: #91d7a4;
-  padding: 5px 30%;
   text-align: center;
 }
 #myInput {
@@ -70,13 +76,14 @@ h1 {
   -moz-flex-wrap: wrap;
   flex-wrap: wrap;
   margin: 0;
+  margin-bottom: 40px;
   overflow: hidden;
 }
 .tabs [class^="tab"] label,
 .tabs [class*=" tab"] label {
   cursor: pointer;
   display: block;
-  font-size: 1.1em;
+  font-size: 1.3em;
   font-weight: 300;
   line-height: 1em;
   padding: 2rem 0;
@@ -100,11 +107,11 @@ h1 {
 .tabs [class^="tab"] [type="radio"]:focus,
 .tabs [class*=" tab"] [type="radio"]:hover,
 .tabs [class*=" tab"] [type="radio"]:focus {
-  border-bottom: 1px solid #fd264f;
+  border-bottom: 1px solid #91d7a4;
 }
 .tabs [class^="tab"] [type="radio"]:checked,
 .tabs [class*=" tab"] [type="radio"]:checked {
-  border-bottom: 2px solid #fd264f;
+  border-bottom: 2px solid #91d7a4;
 }
 .tabs [class^="tab"] [type="radio"]:checked + div,
 .tabs [class*=" tab"] [type="radio"]:checked + div {
@@ -138,11 +145,21 @@ h1 {
   margin-left: -100%;
 }
 #mapid { 
-	height: 600px; 
+	height: 700px; 
+  margin-bottom: 40px;
+}
+#mapidProfile {
+  width: 1000px;
+  height: 600px; 
+  display: block;
+  margin-left: auto;
+  margin-right: auto 
 }
 .carousel_size {
   margin-left: auto;
   margin-right: auto;
+  margin-top: 35px;
+  margin-bottom: 40px;
   height: 600px;
   width: 800px;
 }
@@ -191,5 +208,78 @@ h1 {
 
 #world{
   width: 75%;
-  
+}
+#catchPhrase {
+margin-top: 50px;
+margin-bottom: 50px;
+text-align: center;
+font-size: 30px;
+}
+#logoId {
+  width: 600px;
+  display: block;
+    margin-left: auto;
+    margin-right: auto 
+}
+#marginText {
+  margin-top: 20px;
+  margin-bottom: 15px;
+  font-size: 17px;
+}
+#solid {
+  border-top: 3px solid #91d7a4;
+  margin-top: 40px; 
+  margin-bottom: 40px;
+}
+.imageProfile {
+  margin-top: 70px;
+  margin-bottom: 70px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto 
+}
+.linkProfile {
+  color: #fbfcf8;
+}
+.buttonProfile {
+  display: flex;
+  justify-content: center;
+}
+.buttonMargin {
+  margin-right: 10px;
+  margin-bottom: 30px;
+}
+#colorLign {
+  border-color:  #91d7a4;
+}
+.countryName {
+  font-size: 17px;
+}
+.btn-size {
+  padding: 2px;
+  font-size: 10px;
+  background-color: transparent;
+  border-color: transparent;
+  color: red;
+  margin-left: 5px;
+}
+.marginTabs {
+  margin-bottom: 40px;
+}
+.linkCountry {
+  color: black;
+  text-decoration: none;
+}
+.borderCountry {
+  border: 2px solid #91d7a4;
+  padding: 15px;
+  padding-left: 50px;
+  padding-right: 50px;
+  margin: 15px;
+  text-align: center;
+}
+#solidBorder {
+  border: 1px solid #91d7a4;
+  margin: 5px;
+  margin-bottom: 10px;
 }

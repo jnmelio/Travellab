@@ -16,9 +16,9 @@
 </head>
 
 <body class="general-background darkmode">
-   <nav class="navbar navbar-expand-lg navbar-light bg-light">
+   <nav class="navbar navbar-expand-lg navbar-light navbarcolor">
       <div class="container-fluid">
-         <a class="navbar-brand" href="/home">Home</a>
+         <a class="navbar-brand" id="navtext" href="/home">Home</a>
          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -26,34 +26,38 @@
          <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                <li class="nav-item">
-                  <a class="nav-link active" aria-current="page" href="/home/profile">Profile</a>
+                  <a class="nav-link active" id="navtext" aria-current="page" href="/home/profile">Profile</a>
                </li>
                <li class="nav-item">
-                  <a class="nav-link" href="/about">About</a>
+                  <a class="nav-link" id="navtext" href="/about">About</a>
                </li>
                <li class="nav-item">
-                  <a class="nav-link" href="/profile/:id/details">Account</a>
+                  <a class="nav-link" id="navtext" href="/profile/:id/details">Account</a>
                </li>
                <li class="nav-item">
-                  <a class="nav-link" href="/gallery">Gallery</a>
-                  <a class="nav-link" href="/profile/:id/edit"><img
+                  <a class="nav-link" id="navtext" href="/gallery">Gallery</a>
+                  </li>
+                  <li>
+ <a class="nav-link" href="/profile/:id/edit"><img
             src="{{data.profilePic}}"
             class="rounded-circle"
             height="22"
             alt="profile picture"
             loading="lazy"
           /></a>
-               </li>
+                  </li>
+                 
+               
                <hr>
                <li class="nav-item">
-                  <a class="nav-link" href="/logout">Logout</a>
+                  <a class="nav-link" id="navtext" href="/logout">Logout</a>
                </li>
             </ul>
          </div>
       </div>
    </nav>
 
-   <img src="/images/Logo.png" class="img-fluid" alt="logo">
+   <img src="/images/Logo.png" class="img-fluid" id="logoId" alt="logo">
    {{{body}}}
 
 
@@ -70,9 +74,9 @@
    <script src="https://cdn.jsdelivr.net/npm/darkmode-js@1.5.7/lib/darkmode-js.min.js"></script>
    <script>
       const options = {
-         bottom: '64px', // default: '32px'
+         bottom: '3%', // default: '32px'
          right: 'unset', // default: '32px'
-         left: '32px', // default: 'unset'
+         left: '3%', // default: 'unset'
          time: '0.5s', // default: '0.3s'
          mixColor: '#fff', // default: '#fff'
          backgroundColor: '#fff',  // default: '#fff'

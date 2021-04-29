@@ -1,12 +1,13 @@
 <div>
-  <h1>Hey {{user.username}}, Welcome to your profile</h1>
+  <h1 id="catchPhrase">Hey {{user.username}}, Welcome to your profile</h1>
 </div>
-<img src='{{user.profilePic}}'>
+<div ><img class="imageProfile" src='{{user.profilePic}}'></div>
 
 
-<div>
-  <a class="nav-link" href="/profile/{{user._id}}/details">Go to my account</a>
-  <a href="/country">Add a destination</a>
+
+<div class="buttonProfile">
+  <button class="btn button-travel buttonMargin darkmode-ignore"><a class="nav-link linkProfile" href="/profile/{{user._id}}/details">Go to my account</a></button>
+  <button class="btn button-travel buttonMargin darkmode-ignore"><a class="nav-link linkProfile" href="/country">Add a destination</a></button>
 </div>
 
 <div class="tabs">
@@ -14,10 +15,10 @@
     <label for="tab2-1">Wishlist</label>
     <input id="tab2-1" name="tabs-two" type="radio" checked="checked" class="darkmode-ignore">
     <div>
-      <p>{{#each country.countryWishList}}
+      <p>{{#each user.countryWishList}}
       <form action="/home/profile/{{this._id}}" method="POST">
-        <p>{{this.name}}
-          <button type="submit" class="btn  btn-danger">Delete</button>
+        <p class="countryName"><a class="linkCountry" href="/country/{{this._id}}">{{this.name}}</a>
+          <button type="submit" class="btn  btn-danger btn-size darkmode-ignore">Delete</button>
       </form>
       <!--
       <form action="/search" method='GET'>
@@ -31,10 +32,10 @@
     <label for="tab2-2">Already Visited countries</label>
     <input id="tab2-2" name="tabs-two" type="radio" class="darkmode-ignore">
     <div>
-      <p>{{#each country.countryVisitor}}
+      <p>{{#each user.countryVisitor}}
       <form action="/home/profile/{{this._id}}" method="POST">
-        <p>{{this.name}}
-          <button type="submit" class="btn  btn-danger">Delete</button>
+        <p class="countryName"><a class="linkCountry" href="/country/{{this._id}}">{{this.name}}</a>
+          <button type="submit" class="btn  btn-danger  btn-size darkmode-ignore">Delete</button>
       </form>
       <!--
       <form action="/home/profile/{{this._id}}" method='GET'>
@@ -47,17 +48,22 @@
   </div>
 </div>
 
-{{!-- <div  id="mapid"></div>
+<div id="mapidProfile"></div>
 
 <script>
-	const map = L.map('mapid').setView([51.505, -0.09], 3);
+  const map = L.map('mapidProfile').setView([51.505, -0.09], 3);
 
-	L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-	attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-	}).addTo(map);
-  let myCountry = {{{country}}}
-  for (let i = 0; i < myCountry.length; i++){
-	L.marker(myCountry[i].latlng).addTo(map)
-	.bindPopup(`<a href="/country/${myCountry[i]._id}">${myCountry[i].name}</a>`)
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+  }).addTo(map);
+  let myCountry = {{{ country }}}
+  for (let i = 0; i < myCountry.countryWishList.length; i++) {
+    L.marker(myCountry.countryWishList[i].latlng).addTo(map)
+      .bindPopup(`<a href="/country/${myCountry.countryWishList[i]._id}">${myCountry.countryWishList[i].name}</a>`)
   }
-</script> --}}
+    for (let i = 0; i < myCountry.countryVisitor.length; i++) {
+    L.marker(myCountry.countryVisitor[i].latlng).addTo(map)
+      .bindPopup(`<a href="/country/${myCountry.countryVisitor[i]._id}">${myCountry.countryVisitor[i].name}</a>`)
+  }
+
+</script>

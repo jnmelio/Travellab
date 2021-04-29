@@ -20,12 +20,13 @@ const authorize = (req, res, next) => {
 router.get("/home/profile", authorize, (req, res, next) => {
   const {_id} = req.params
   User.findById(req.session.userInfo._id)
-    .populate("countryWishList", "name")
-    .populate("countryVisitor", "name")
+    .populate("countryWishList", "name latlng")
+    .populate("countryVisitor", "name latlng")
     .then((data) => {
+      console.log(data)
       res.render("profilePages/profile.hbs", {
-        user: req.session.userInfo,
-        country: data,
+        user: data,
+        country: JSON.stringify(data),
       });
     })
     .catch((err) => {
