@@ -18,7 +18,7 @@ const authorize = (req, res, next) => {
 
 //PROFILE ROUTES
 router.get("/home/profile", authorize, (req, res, next) => {
-  const {_id} = req.params
+  
   User.findById(req.session.userInfo._id)
     .populate("countryWishList", "name latlng")
     .populate("countryVisitor", "name latlng")
@@ -53,7 +53,7 @@ router.get("/country", (req, res, next) => {
     .find()
     .then((response) => {
       res.render("country/addADestination.hbs", {
-        country: JSON.stringify(response),
+        country: JSON.stringify(response), user:req.session.userInfo
       });
     })
     .catch((err) => {
@@ -88,6 +88,7 @@ router.get("/country/:id", (req, res, next) => {
             res.render("country/country-details.hbs", {
               images: response.data.results,
               data,
+              user:req.session.userInfo
             });
           }
         })
@@ -112,12 +113,12 @@ router.get("/country/:countryId/:list", (req, res, next) => {
 });
 
 // ACCOUNT DETAILS ROUTE
-router.get("/profile/:id/details", (req, res, next) => {
+router.get("/profile/details", (req, res, next) => {
   const { _id } = req.session.userInfo;
   console.log(_id);
   User.findById(_id)
     .then((data) => {
-      res.render("profilePages/profile-details.hbs", { data });
+      res.render("profilePages/profile-details.hbs", { user :data });
     })
     .catch((err) => {
       console.log(err);
@@ -125,20 +126,20 @@ router.get("/profile/:id/details", (req, res, next) => {
 });
 
 //EDIT ACCOUNT INFOS ROUTES
-router.get("/profile/:id/edit", (req, res, next) => {
+router.get("/profile/edit", (req, res, next) => {
   const { _id } = req.session.userInfo;
 
   console.log(_id);
   User.findById(_id)
     .then((data) => {
-      res.render("profilePages/profile-edit", { data });
+      res.render("profilePages/profile-edit", { user:data });
     })
     .catch((err) => {
       console.log(err);
     });
 });
 
-router.post("/profile/:id/edit", (req, res, next) => {
+router.post("/profile/edit", (req, res, next) => {
   const { _id } = req.session.userInfo;
   const {
     username,
@@ -153,9 +154,10 @@ router.post("/profile/:id/edit", (req, res, next) => {
     favoriteCountry,
     favoriteWayOfTraveling,
     typeOfTraveller,
-  })
+  }, {new:true})
     .then((data) => {
-      res.redirect("/profile/:id/details");
+      req.session.userInfo = data
+      res.redirect("/profile/details");
     })
     .catch((err) => {
       console.log(err);
@@ -169,9 +171,10 @@ router.post(
   uploader.single("image"),
   (req, res, next) => {
     User.findByIdAndUpdate(req.session.userInfo._id, {
-      profilePic: req.file.path,
-    })
+      profilePic: req.file.path
+    }, {new:true})
       .then((data) => {
+        req.session.userInfo = data
         res.redirect("/home/profile");
       })
       .catch((err) => {
@@ -181,7 +184,7 @@ router.post(
 );
 
 //DELETE THE ACCOUNT
-router.post("/profile/:id/delete", (req, res, next) => {
+router.post("/profile/delete", (req, res, next) => {
   const { _id } = req.session.userInfo;
   User.findByIdAndDelete(_id)
     .then(() => {

@@ -23,7 +23,7 @@ const projectName = "travellab";
 const capitalized = (string) =>
   string[0].toUpperCase() + string.slice(1).toLowerCase();
 
-app.locals.title = `${capitalized(projectName)} created with Ironlauncher`;
+app.locals.title = `${capitalized(projectName)} unleash your dreams`;
 
 const session = require("express-session");
 const MongoStore = require("connect-mongo");

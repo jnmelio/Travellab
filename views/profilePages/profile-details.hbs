@@ -1,18 +1,18 @@
-<p>Username : {{data.username}}</p>
-<p>Email: {{data.email}}</p>
-<p>Date of Birth: {{data.age}}</p>
-<p>Favorite Country: {{data.favoriteCountry}}</p>
-<p>Favorite Way of Travelling: {{data.favoriteWayOfTraveling}}</p>
-<p>Type of Traveller: {{data.typeOfTraveller}}</p>
-<p>Photo: <img src='{{data.profilePic}}'></p>
+<p>Username : {{user.username}}</p>
+<p>Email: {{user.email}}</p>
+<p>Date of Birth: {{user.age}}</p>
+<p>Favorite Country: {{user.favoriteCountry}}</p>
+<p>Favorite Way of Travelling: {{user.favoriteWayOfTraveling}}</p>
+<p>Type of Traveller: {{user.typeOfTraveller}}</p>
+<p>Photo: <img src='{{user.profilePic}}'></p>
 
 
 
-<form action='/profile/{{data._id}}/edit' method="GET">
+<form action='/profile/edit' method="GET">
   <button class="btn btn-warning">Edit</button>
 </form>
 <br>
-<form action='/profile/{{data._id}}/delete' method="POST">
+<form action='/profile/delete' method="POST">
   <button class="btn btn-danger">Delete your account</button>
 </form>
 <button class="btn btn-primary"><a href="/home/profile">Go to your profile</a></button>

@@ -17,7 +17,8 @@ function randomCountry(response) {
 
 //HOME ROUTES
 router.get("/home", (req, res) => {
-  res.render("index.hbs");
+  let user = req.session.userInfo 
+  res.render("index.hbs", {user});
 });
 
 router.post("/home", (req, res, next) => {
@@ -140,7 +141,15 @@ router.post("/signup/firstwishlist", (req, res, next) => {
 
 //ABOUT ROUTE
 router.get('/about', (req, res, next)=>{
-  res.render('about.hbs')
+  const { _id } = req.session.userInfo
+
+  User.findById(_id)
+  .then((data) => {
+    res.render('about.hbs', {user: data})
+  }).catch((err) => {
+    
+  });
+  
 })
 
 //LOG OUT ROUTE
