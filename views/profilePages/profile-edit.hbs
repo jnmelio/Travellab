@@ -3,20 +3,20 @@
   <button type="submit">Submit</button>
 </form>
 
-<form action='/profile/{{data._id}}/edit' method='POST'>
+<form action='/profile/edit' method='POST'>
 
   <label for='title'>Username</label>
-  <input type='text' name="username" value='{{data.username}}'>
+  <input type='text' name="username" value='{{user.username}}'>
 
   <br>
 
   <label for=''>Age</label>
-  <input type='text' name='age' value='{{data.age}}'>
+  <input type='text' name='age' value='{{user.age}}'>
 
   <br>
 
   <label for=''>Favorite Country</label>
-  <input type='text' name='favoriteCountry' value='{{data.favoriteCountry}}'>
+  <input type='text' name='favoriteCountry' value='{{user.favoriteCountry}}'>
 
   <br>
   <label for="favoriteWayOfTraveling">My favorite way of travelling is:</label>

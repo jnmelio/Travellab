@@ -32,12 +32,14 @@
                   <a class="nav-link" href="/about">About</a>
                </li>
                <li class="nav-item">
-                  <a class="nav-link" href="/profile/:id/details">Account</a>
+                  <a class="nav-link" href="/profile/details">Account</a>
                </li>
                <li class="nav-item">
                   <a class="nav-link" href="/gallery">Gallery</a>
-                  <a class="nav-link" href="/profile/:id/edit"><img
-            src="{{data.profilePic}}"
+               </li>
+               <li class="nav-item">
+                     <a class="nav-link" href="/profile/edit"><img
+            src="{{user.profilePic}}"
             class="rounded-circle"
             height="22"
             alt="profile picture"
