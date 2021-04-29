@@ -243,7 +243,8 @@ font-size: 30px;
   margin-bottom: 70px;
   display: block;
   margin-left: auto;
-  margin-right: auto 
+  margin-right: auto;
+  height: 50px
 }
 .linkProfile {
   color: #fbfcf8;
@@ -326,4 +327,7 @@ font-size: 15px;
 #btnBack {
   color: white;
   text-decoration: none;
+}
+#heightImg {
+  height: 50px;
 }
