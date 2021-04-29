@@ -52,13 +52,17 @@ router.post("/home", (req, res, next) => {
 
 //ABOUT ROUTE
 router.get('/about', (req, res, next)=>{
-  const { _id } = req.session.userInfo
+  if (req.session.userInfo){
+    const { _id } = req.session.userInfo
   User.findById(_id)
   .then((data) => {
     res.render('about.hbs', {user: data})
   }).catch((err) => {
   });
-})
+  }
+  else{
+    res.render('about.hbs')
+}})
 
 //SIGN UP ROUTES
 router.get("/signup", (req, res, next) => {
