@@ -18,7 +18,6 @@ const authorize = (req, res, next) => {
 
 //PROFILE ROUTES
 router.get("/home/profile", authorize, (req, res, next) => {
-  
   User.findById(req.session.userInfo._id)
     .populate("countryWishList", "name latlng")
     .populate("countryVisitor", "name latlng")
@@ -27,10 +26,9 @@ router.get("/home/profile", authorize, (req, res, next) => {
         user: data,
         country: JSON.stringify(data),
       });
-      
     })
     .catch((err) => {
-      console.log(err);
+      next(err);
     });
 });
 
@@ -43,7 +41,7 @@ router.post("/home/profile/:countryId", (req, res, next) => {
       res.redirect("/home/profile");
     })
     .catch((err) => {
-      console.log(err);
+      next(err);
     });
 });
 
@@ -53,7 +51,8 @@ router.get("/country", (req, res, next) => {
     .find()
     .then((response) => {
       res.render("country/addADestination.hbs", {
-        country: JSON.stringify(response), user:req.session.userInfo
+        country: JSON.stringify(response),
+        user: req.session.userInfo,
       });
     })
     .catch((err) => {
@@ -88,54 +87,50 @@ router.get("/country/:id", (req, res, next) => {
             res.render("country/country-details.hbs", {
               images: response.data.results,
               data,
-              user:req.session.userInfo
+              user: req.session.userInfo,
             });
           }
         })
-        .catch((err) => console.log(err));
+        .catch((err) => next(err));
     })
     .catch((err) => {
-      console.log(err);
+      next(err);
     });
 });
 
 router.get("/country/:countryId/:list", (req, res, next) => {
   const { _id } = req.session.userInfo;
   const { countryId, list } = req.params;
-  console.log(countryId, list);
   User.findByIdAndUpdate(_id, { $push: { [list]: countryId } }, { new: true })
     .then(() => {
       res.redirect("/home/profile");
     })
     .catch((err) => {
-      console.log(err);
+      next(err);
     });
 });
 
 // ACCOUNT DETAILS ROUTE
 router.get("/profile/details", (req, res, next) => {
   const { _id } = req.session.userInfo;
-  console.log(_id);
   User.findById(_id)
     .then((data) => {
-      res.render("profilePages/profile-details.hbs", { user :data });
+      res.render("profilePages/profile-details.hbs", { user: data });
     })
     .catch((err) => {
-      console.log(err);
+      next(err);
     });
 });
 
 //EDIT ACCOUNT INFOS ROUTES
 router.get("/profile/edit", (req, res, next) => {
   const { _id } = req.session.userInfo;
-
-  console.log(_id);
   User.findById(_id)
     .then((data) => {
-      res.render("profilePages/profile-edit", { user:data });
+      res.render("profilePages/profile-edit", { user: data });
     })
     .catch((err) => {
-      console.log(err);
+      next(err);
     });
 });
 
@@ -148,19 +143,22 @@ router.post("/profile/edit", (req, res, next) => {
     favoriteWayOfTraveling,
     typeOfTraveller,
   } = req.body;
-  User.findByIdAndUpdate(_id, {
-    username,
-    age,
-    favoriteCountry,
-    favoriteWayOfTraveling,
-    typeOfTraveller,
-  }, {new:true})
+  User.findByIdAndUpdate(_id,
+    {
+      username,
+      age,
+      favoriteCountry,
+      favoriteWayOfTraveling,
+      typeOfTraveller,
+    },
+    { new: true }
+  )
     .then((data) => {
-      req.session.userInfo = data
+      req.session.userInfo = data;
       res.redirect("/profile/details");
     })
     .catch((err) => {
-      console.log(err);
+      next(err);
     });
 });
 
@@ -170,15 +168,19 @@ router.post(
   authorize,
   uploader.single("image"),
   (req, res, next) => {
-    User.findByIdAndUpdate(req.session.userInfo._id, {
-      profilePic: req.file.path
-    }, {new:true})
+    User.findByIdAndUpdate(
+      req.session.userInfo._id,
+      {
+        profilePic: req.file.path,
+      },
+      { new: true }
+    )
       .then((data) => {
-        req.session.userInfo = data
-        res.redirect("/home/profile");
+        req.session.userInfo = data;
+        res.redirect("/profile/edit");
       })
       .catch((err) => {
-        console.log(err);
+        next(err);
       });
   }
 );
@@ -193,7 +195,7 @@ router.post("/profile/delete", (req, res, next) => {
       res.redirect("/home");
     })
     .catch((err) => {
-      console.log(err);
+      next(err);
     });
 });
 

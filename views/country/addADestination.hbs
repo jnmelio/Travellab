@@ -1,22 +1,16 @@
-<div  id="catchPhrase">
-<h3>Pick a destination on the map</h3>
+<div id="catchPhrase">
+	<h3>Pick a destination on the map</h3>
 </div>
-
-
-
-<div  id="mapid"></div>
-
+<div id="mapid"></div>
 <script>
 	const map = L.map('mapid').setView([51.505, -0.09], 3);
 
 	L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-	attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+		attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 	}).addTo(map);
-  let country = {{{country}}}
-  for (let i = 0; i < country.length; i++){
-	L.marker(country[i].latlng).addTo(map)
-	.bindPopup(`<a href="/country/${country[i]._id}">${country[i].name}</a>`)
-  }
+	let country = {{{ country }}}
+	for (let i = 0; i < country.length; i++) {
+		L.marker(country[i].latlng).addTo(map)
+			.bindPopup(`<a href="/country/${country[i]._id}">${country[i].name}</a>`)
+	}
 </script>
-
-

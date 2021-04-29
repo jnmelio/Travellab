@@ -3,7 +3,6 @@ const router = require("express").Router();
 const bcrypt = require("bcryptjs");
 require("dotenv/config");
 const User = require("../models/User.model");
-const axios = require("axios");
 const countryModel = require("../models/Country.model");
 
 //FUNCTION RANDOM COUNTRIES
@@ -17,8 +16,8 @@ function randomCountry(response) {
 
 //HOME ROUTES
 router.get("/home", (req, res) => {
-  let user = req.session.userInfo 
-  res.render("index.hbs", {user});
+  let user = req.session.userInfo;
+  res.render("index.hbs", { user });
 });
 
 router.post("/home", (req, res, next) => {
@@ -51,18 +50,20 @@ router.post("/home", (req, res, next) => {
 });
 
 //ABOUT ROUTE
-router.get('/about', (req, res, next)=>{
-  if (req.session.userInfo){
-    const { _id } = req.session.userInfo
-  User.findById(_id)
-  .then((data) => {
-    res.render('about.hbs', {user: data})
-  }).catch((err) => {
-  });
+router.get("/about", (req, res, next) => {
+  if (req.session.userInfo) {
+    const { _id } = req.session.userInfo;
+    User.findById(_id)
+      .then((data) => {
+        res.render("about.hbs", { user: data });
+      })
+      .catch((err) => {
+        next(err);
+      });
+  } else {
+    res.render("about.hbs");
   }
-  else{
-    res.render('about.hbs')
-}})
+});
 
 //SIGN UP ROUTES
 router.get("/signup", (req, res, next) => {
@@ -141,33 +142,16 @@ router.get("/signup/firstwishlist", (req, res, next) => {
 
 router.post("/signup/firstwishlist", (req, res, next) => {
   const { _id } = req.session.userInfo;
-  const { countryWishList } = req.body;
-  const {name} = req.body
+  const { countryWishList, name } = req.body;
   User.findByIdAndUpdate(_id, { countryWishList }, { new: true })
     .then((response) => {
       res.redirect("/home/profile");
     })
     .catch((err) => {
-      console.log(err);
+      next(err);
     });
 });
 
-//ABOUT ROUTE
-router.get('/about', (req, res, next)=>{
-  if (req.session.userInfo){
-    const { _id } = req.session.userInfo
-
-  User.findById(_id)
-  .then((data) => {
-    res.render('about.hbs', {user: data})
-  }).catch((err) => {
-    
-  });
-  } 
-  else{
-    res.render('about.hbs')
-  
-}})
 
 //LOG OUT ROUTE
 router.get("/logout", (req, res, next) => {

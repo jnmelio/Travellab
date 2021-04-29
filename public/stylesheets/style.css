@@ -25,8 +25,8 @@ h1 {
   font-family: "Open Sans", sans-serif;
 }
 #navtext {
-color: #fbfcf8;
-font-size: 20px;
+  color: #fbfcf8;
+  font-size: 20px;
 }
 .navbarcolor {
   background-color: #91d7a4;
@@ -144,16 +144,16 @@ font-size: 20px;
 .tabs .tab-2:last-child [type="radio"]:checked + div {
   margin-left: -100%;
 }
-#mapid { 
-	height: 700px; 
+#mapid {
+  height: 700px;
   margin-bottom: 40px;
 }
 #mapidProfile {
   width: 1000px;
-  height: 600px; 
+  height: 600px;
   display: block;
   margin-left: auto;
-  margin-right: auto 
+  margin-right: auto;
 }
 .carousel_size {
   margin-left: auto;
@@ -165,47 +165,56 @@ font-size: 20px;
 }
 
 /*Error Page Styling*/
-#errorButtondiv{
-  margin-top: 50px;
+#errorButtondiv {
+  margin-top: 40px;
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: baseline;
-  font-size: large;
   font-weight: bold;
-  
 }
 
-.luis{
-  width: 40%;
+.luis {
+  position: absolute;
+  height: 100px;
+  left: 70%;
+  top: 80%;
 }
 
-#sheep{
-  width: 50%;
+#sheep {
+  width: 500px;
+}
+#errorImg {
+  display: flex;
+  justify-content: center;
 }
 
-.container-error{
+.container-error {
   display: block;
   text-align: center;
-  
 }
 
-.errorPageNotFound{
+.errorPageNotFound {
   display: block;
   margin: auto;
-  margin-top: 30px;
   flex-direction: column;
-  
-
+}
+#catchPhraseError {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  text-align: center;
+  font-size: 30px;
 }
 
-#text-button{
+#text-button {
   margin-right: auto;
+  margin-left: auto;
+  font-size: 20px;
 }
 
 /* Error 500*/
 
-#errorLink{
+#errorLink {
   margin-top: 50px;
   display: flex;
   flex-direction: row;
@@ -213,20 +222,20 @@ font-size: 20px;
   align-items: center;
 }
 
-#world{
+#world {
   width: 75%;
 }
 #catchPhrase {
-margin-top: 50px;
-margin-bottom: 50px;
-text-align: center;
-font-size: 30px;
+  margin-top: 50px;
+  margin-bottom: 50px;
+  text-align: center;
+  font-size: 30px;
 }
 #logoId {
   width: 600px;
   display: block;
-    margin-left: auto;
-    margin-right: auto 
+  margin-left: auto;
+  margin-right: auto;
 }
 #marginText {
   margin-top: 20px;
@@ -235,7 +244,7 @@ font-size: 30px;
 }
 #solid {
   border-top: 3px solid #91d7a4;
-  margin-top: 40px; 
+  margin-top: 40px;
   margin-bottom: 40px;
 }
 .imageProfile {
@@ -244,7 +253,7 @@ font-size: 30px;
   display: block;
   margin-left: auto;
   margin-right: auto;
-  height: 50px
+  height: 50px;
 }
 .linkProfile {
   color: #fbfcf8;
@@ -259,7 +268,7 @@ font-size: 30px;
   border-radius: 20px;
 }
 #colorLign {
-  border-color:  #91d7a4;
+  border-color: #91d7a4;
 }
 .countryName {
   font-size: 17px;
@@ -294,14 +303,14 @@ font-size: 30px;
   margin-bottom: 10px;
 }
 .titleH4 {
-margin-bottom: 30px;
-text-align: center;
-font-size: 20px;
+  margin-bottom: 30px;
+  text-align: center;
+  font-size: 20px;
 }
 #pickCountry {
-margin-bottom: 20px;
-text-align: center;
-font-size: 15px;
+  margin-bottom: 20px;
+  text-align: center;
+  font-size: 15px;
 }
 .textCenter {
   margin-left: auto;
