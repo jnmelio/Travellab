@@ -76,12 +76,34 @@ router.post("/mytrips/:tripId/delete", (req, res, next)=>{
     .then(() => {
       res.redirect("/mytrips")
     }).catch((err) => {
-      console.log(err);
+      next(err)
     });
 })
 
 //EDIT TRIP
+router.get('/mytrips/:tripId/edit', (req,res, next)=>{
+  const {tripId} = req.params
+  tripModel
+  .findById(tripId)
+  .then((data) => {
+    res.render('trips/tripEdit', {data,user:req.session.userInfo})
+  }).catch((err) => {
+    next(err)
+  });
+})
 
+router.post('/mytrips/:tripId/edit', (req,res, next)=>{
+  const {tripId} = req.params
+  const {tripName, mainCitytoVisit, activitiesToDo, notes} = req.body
+  tripModel
+    .findByIdAndUpdate(tripId, {tripName, mainCitytoVisit, activitiesToDo, notes})
+    .then((result) => {
+      res.redirect('/mytrips')
+    }).catch((err) => {
+      next(err)
+    });
+
+})
 
 
 //DELETE COUNTRY IN LISTS

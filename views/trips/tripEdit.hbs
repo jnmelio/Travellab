@@ -1,0 +1,30 @@
+<h1>Edit your Trip</h1>
+
+<form action='/trip/{{data.tripId}}/edit' method='POST'>
+  <div class="mb-3">
+  <label for='tripName' class="form-label" id="marginText">Trip Name</label>
+  <input type='text' name="tripName" class="form-control" value="{{data.tripName}}">
+  </div>
+
+  <div class="mb-3">
+  <label for='mainCitytoVisit' class="form-label" id="marginText">Main City to Visit</label>
+  <input type='text' name="mainCitytoVisit" class="form-control" value="{{data.mainCitytoVisit}}">
+  </div>
+
+  <div class="mb-3">
+  <label for="activitiesToDo" class="form-label" id="marginText">Activity I want to do</label>
+  <select name="activitiesToDo" id="activitiesToDo" class="form-select">
+    <option selected=value="Shopping">Shopping</option>
+    <option selected=value="Sport Activities">Sport Activities</option>
+    <option selected=value="Sightseeing">Sightseeing</option>
+    <option selected=value="Culinary Experiences">Culinary Experiences</option>
+    <option selected=value="Cultural experiences">Cultural experiences</option>
+    <option selected=value="Other">Other</option>
+  </select>
+
+  <div class="mb-3">
+  <label for='notes' class="form-label" id="marginText">Notes</label>
+  <input type='text' name="notes" class="form-control" value="{{data.notes}}">
+  </div>
+
+  <button type="submit" class="btn btn-primary button-travel darkmode-ignore container-fluid">Submit</button>

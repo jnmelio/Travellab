@@ -7,6 +7,9 @@
 <p> Main City to Visit: {{this.mainCitytoVisit}}</p>
 <p> Activity: {{this.activitiesToDo}}</p>
 <p> Notes: {{this.notes}}</p>
+<form action='/mytrips/{{this._id}}/edit' method="GET">
+<button>Edit</button>
+</form>
 <form action='/mytrips/{{this._id}}/delete' method="POST">
 <button>Delete</button>
 </form>

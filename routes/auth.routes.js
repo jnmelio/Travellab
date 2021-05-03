@@ -159,8 +159,9 @@ router.get("/about", (req, res, next) => {
       .catch((err) => {
         next(err);
       });
-  } if(req.session.userInfo == undefined){
-    res.render("about.hbs");
+  } 
+  else{
+    res.render("about");
   }
 });
 
