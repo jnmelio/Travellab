@@ -19,10 +19,13 @@
         <p class="countryName"><a class="linkCountry" href="/country/{{this._id}}">{{this.name}}</a>
           <button type="submit" class="btn  btn-danger btn-size darkmode-ignore">Delete</button>
       </form>
-      <!--
-      <form action="/search" method='GET'>
-      <button class="btn btn-warning">Edit</button>
-      </form>-->
+      <form action="/profile/trip" method='GET'>
+      <button class="btn  btn-danger btn-size darkmode-ignore">Create your trip</button>
+      </form>
+      </p>
+      <form action="/profile/trip-edit" method='POST'>
+      <button class="btn  btn-danger btn-size darkmode-ignore">Edit your trip</button>
+      </form>
       </p>
       {{/each}}</p>
     </div>
