@@ -62,7 +62,7 @@ router.get('/mytrips', (req, res, next)=>{
   User.findById(req.session.userInfo)
   .populate('userTrips')
   .then((result) => {
-    res.render('trips/listoftrips.hbs', {result, user:req.session.userInfo} )
+    res.render('trips/listoftrips.hbs', {result} )
   }).catch((err) => {
     next(err)
   });
@@ -97,8 +97,8 @@ router.post('/mytrips/:tripId/edit', (req,res, next)=>{
   const {tripName, mainCitytoVisit, activitiesToDo, notes} = req.body
   tripModel
     .findByIdAndUpdate(tripId, {tripName, mainCitytoVisit, activitiesToDo, notes})
-    .then((result) => {
-      res.redirect('/mytrips')
+    .then((data) => {
+      res.redirect('/mytrips', {data})
     }).catch((err) => {
       next(err)
     });
