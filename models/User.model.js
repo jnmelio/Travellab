@@ -15,7 +15,7 @@ const userSchema = new Schema({
     required: true,
   },
   age: Number,
-  profilePic: {
+  profilePic:{
     type: String,
     default: "/images/profileIcon.png",
   },
@@ -47,6 +47,12 @@ const userSchema = new Schema({
     {
       type: Schema.Types.ObjectId,
       ref: "country",
+    },
+  ],
+  userTrips: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "trip",
     },
   ],
 });

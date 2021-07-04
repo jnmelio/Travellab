@@ -4,6 +4,7 @@ const bcrypt = require("bcryptjs");
 const User = require("../models/User.model");
 const axios = require("axios");
 const countryModel = require("../models/Country.model");
+const tripModel = require('../models/Trip.model')
 const uploader = require("../middleware/cloudinary");
 require("dotenv/config");
 
@@ -31,6 +32,78 @@ router.get("/home/profile", authorize, (req, res, next) => {
       next(err);
     });
 });
+
+// CREATE TRIPS
+router.get('/profile/trip', (req, res, next)=>{
+  res.render('trips/trips-create', {user:req.session.userInfo})
+})
+
+router.post('/profile/trip', (req, res, next)=>{
+  const {tripName, mainCitytoVisit, activitiesToDo, notes} = req.body
+  
+  tripModel.create({tripName, mainCitytoVisit, activitiesToDo, notes})
+    .then((data)=>{
+        User.findByIdAndUpdate(req.session.userInfo._id, {$push: {userTrips: data._id}}, { new: true })
+        .then((newUser) => {
+          req.session.userInfo = newUser
+          res.redirect('/home/profile')
+        })
+    })
+    .catch((err) => {
+      next(err)
+    });
+  
+})
+
+//list of all Trips
+router.get('/mytrips', (req, res, next)=>{
+  
+  User.findById(req.session.userInfo)
+  .populate('userTrips')
+  .then((result) => {
+    res.render('trips/listoftrips.hbs', {result} )
+  }).catch((err) => {
+    next(err)
+  });
+})
+
+//DELETE TRIP
+router.post("/mytrips/:tripId/delete", (req, res, next)=>{
+  const {tripId} = req.params;
+  tripModel
+    .findByIdAndDelete(tripId)
+    .then(() => {
+      res.redirect("/mytrips")
+    }).catch((err) => {
+      next(err)
+    });
+})
+
+//EDIT TRIP
+router.get('/mytrips/:tripId/edit', (req,res, next)=>{
+  const {tripId} = req.params
+  tripModel
+  .findById(tripId)
+  .then((data) => {
+    res.render('trips/tripEdit', {data,user:req.session.userInfo})
+  }).catch((err) => {
+    next(err)
+  });
+})
+
+router.post('/mytrips/:tripId/edit', (req,res, next)=>{
+  const {tripId} = req.params
+  const {tripName, mainCitytoVisit, activitiesToDo, notes} = req.body
+  tripModel
+    .findByIdAndUpdate(tripId, {tripName, mainCitytoVisit, activitiesToDo, notes})
+    .then((data) => {
+      res.redirect('/mytrips', {data})
+    }).catch((err) => {
+      next(err)
+    });
+
+})
+
 
 //DELETE COUNTRY IN LISTS
 router.post("/home/profile/:countryId", (req, res, next) => {
